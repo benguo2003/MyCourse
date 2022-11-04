@@ -1,8 +1,12 @@
 import './App.css';
+import Box from '@mui/material/Box';
+
 function App() {
     return (
-        <div className="container">
-            Employee Management System
+        <div>
+            <div className="title">
+                MyCourse
+            </div>
         </div>
     );
 }
