@@ -1,12 +1,24 @@
-const {ATLAS_URI} = process.env;
+const { MongoClient } = require("mongodb");
 
-const {MongoClient} = require("mongodb");
+const client = new MongoClient('mongodb+srv://MyCourse:webcreate@cluster0.65igpn4.mongodb.net/?retryWrites=true&w=majority');
 
-let conn = new MongoClient(ATLAS_URI, {useUnifiedTopology: true});
+let dbConnection;
 
 module.exports = {
-    async getDbo() {
-        if (conn.isConnected()) await conn.connect();
-        return conn.db("myCourseDB");
-    },
+  connectToServer: function (callback) {
+    client.connect(function (err, db) {
+      if (err || !db) {
+        return callback(err);
+      }
+
+      dbConnection = db.db("myCourseDB");
+      console.log("Successfully connected to MongoDB.");
+
+      return callback();
+    });
+  },
+
+  getDb: function () {
+    return dbConnection;
+  },
 };
