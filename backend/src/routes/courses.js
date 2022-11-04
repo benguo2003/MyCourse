@@ -1,4 +1,5 @@
 const express = require("express");
+<<<<<<< HEAD
 const recordRoutes = express.Router();
 const dbo = require("../db/conn");
 
@@ -19,3 +20,12 @@ recordRoutes.route("/api/courses").get(async function (req, res) {
 });
 
 module.exports = recordRoutes;
+=======
+const router = express.Router()
+const course = require("../controllers/courses");
+
+router.route("/api/courses").get(async function (req, res) {
+    course.getAllCourses;
+});
+router.post("/api/createCourses", course.createCourse);
+>>>>>>> bee8dea (test changes)
