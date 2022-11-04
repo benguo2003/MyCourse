@@ -3,6 +3,7 @@ const database = require("./database.js");
 const courses = {
     async getAllCourses() {
         const dbo = await database.getDbo();
+        console.log(dbo.collection("courses").find().toArray());
         return await dbo.collection("courses").find().toArray();
     },
 
