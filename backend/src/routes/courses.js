@@ -1,7 +1,8 @@
 const express = require("express");
-const router = express.Router();
-
+const router = express.Router()
 const course = require("../controllers/courses");
 
-router.get("/api/courses", course.getAllCourses);
+router.route("/api/courses").get(async function (req, res) {
+    course.getAllCourses;
+});
 router.post("/api/createCourses", course.createCourse);
