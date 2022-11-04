@@ -22,7 +22,7 @@ class App extends React.Component {
       }
     
     handleSubmit(event) {
-        API.getAllCourses();
+        console.log(API.getAllCourses());
         alert('A name was submitted: ' + this.state.teacher);
         event.preventDefault();
     }
