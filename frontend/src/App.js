@@ -40,6 +40,34 @@ class App extends React.Component {
                     </label>
                     <input type="submit" value="Submit" />
                 </form>
+                <form onSubmit={this.handleSubmit} className="submitForm">
+                    <label>
+                    Course ID:
+                    <input type="text" value={this.state.courseid} onChange={this.handleChange} />
+                    </label>
+                    <input type="submit" value="Submit" />
+                </form>
+                <form onSubmit={this.handleSubmit} className="submitForm">
+                    <label>
+                    Course Name:
+                    <input type="text" value={this.state.coursename} onChange={this.handleChange} />
+                    </label>
+                    <input type="submit" value="Submit" />
+                </form>
+                <form onSubmit={this.handleSubmit} className="submitForm">
+                    <label>
+                    Course Days:
+                    <input type="text" value={this.state.days} onChange={this.handleChange} />
+                    </label>
+                    <input type="submit" value="Submit" />
+                </form>
+                <form onSubmit={this.handleSubmit} className="submitForm">
+                    <label>
+                    Course Times:
+                    <input type="text" value={this.state.times} onChange={this.handleChange} />
+                    </label>
+                    <input type="submit" value="Submit" />
+                </form>
             </div>
         )
     }
