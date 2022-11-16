@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import * as API from './api/courses'
-
+import BasicSelect from './filters';
 
 class App extends React.Component {
     constructor(props) {
@@ -22,7 +22,8 @@ class App extends React.Component {
       }
     
     handleSubmit(event) {
-        console.log(API.getAllCourses());
+        var x = API.getAllCourses();
+        console.log(x);
         alert('A name was submitted: ' + this.state.teacher);
         event.preventDefault();
     }
@@ -33,41 +34,7 @@ class App extends React.Component {
                 <div className="title">
                     MyCourse
                 </div>
-                <form onSubmit={this.handleSubmit} className="submitForm">
-                    <label>
-                    Teacher Name:
-                    <input type="text" value={this.state.teacher} onChange={this.handleChange} />
-                    </label>
-                    <input type="submit" value="Submit" />
-                </form>
-                <form onSubmit={this.handleSubmit} className="submitForm">
-                    <label>
-                    Course ID:
-                    <input type="text" value={this.state.courseid} onChange={this.handleChange} />
-                    </label>
-                    <input type="submit" value="Submit" />
-                </form>
-                <form onSubmit={this.handleSubmit} className="submitForm">
-                    <label>
-                    Course Name:
-                    <input type="text" value={this.state.coursename} onChange={this.handleChange} />
-                    </label>
-                    <input type="submit" value="Submit" />
-                </form>
-                <form onSubmit={this.handleSubmit} className="submitForm">
-                    <label>
-                    Course Days:
-                    <input type="text" value={this.state.days} onChange={this.handleChange} />
-                    </label>
-                    <input type="submit" value="Submit" />
-                </form>
-                <form onSubmit={this.handleSubmit} className="submitForm">
-                    <label>
-                    Course Times:
-                    <input type="text" value={this.state.times} onChange={this.handleChange} />
-                    </label>
-                    <input type="submit" value="Submit" />
-                </form>
+                <BasicSelect />
             </div>
         )
     }
