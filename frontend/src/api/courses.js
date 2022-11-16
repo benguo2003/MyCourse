@@ -13,19 +13,21 @@ export const getAllCourses = async () => {
 };
 
 export const createCourse = async (
+    classID,
     teacher,
-    courseID,
-    courseName,
-    days,
-    times    
+    daysOfWeek,
+    className,
+    meetingStartTime,
+    meetingStopTime   
   ) => {
     return await axios
-      .post(`${BASE_URL}/api/createCourses`, {
+      .post(`${BASE_URL}/api/createCourse`, {
+        classID: classID,
         teacher: teacher,
-        courseID: courseID,
-        courseName: courseName,
-        days: days,
-        times: times 
+        daysOfWeek: daysOfWeek,
+        className: className,
+        meetingStartTime: meetingStartTime,
+        meetingStopTime: meetingStopTime, 
       })
       .then((res) => {
         return res.data;
@@ -34,3 +36,14 @@ export const createCourse = async (
         console.log(err.message);
       });
   };
+
+export const deleteCourse = async () => {
+  return await axios
+    .delete(`${BASE_URL}/api/deleteCourse`)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+}
