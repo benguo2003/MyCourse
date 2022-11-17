@@ -5,11 +5,14 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export default function BasicSelect() {
+export default function BasicSelect(props) {
   const [age, setAge] = React.useState('');
 
   const handleChange = (event) => {
     setAge(event.target.value);
+    props.test[0] += 1;
+    //array[0] += 1;
+    //console.log(props.test);
   };
 
   return (
@@ -25,7 +28,7 @@ export default function BasicSelect() {
         >
           <MenuItem value={10}>Ten</MenuItem>
           <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <MenuItem value={30}>{props.test[0]}</MenuItem>
         </Select>
       </FormControl>
     </Box>

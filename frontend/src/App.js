@@ -11,7 +11,8 @@ class App extends React.Component {
           courseid: 0,
           coursename: '',
           days: '',
-          times: ''
+          times: '',
+          values: [0]
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -34,7 +35,7 @@ class App extends React.Component {
                 <div className="title">
                     MyCourse
                 </div>
-                <BasicSelect />
+                <BasicSelect test={this.state.values}/>
             </div>
         )
     }
