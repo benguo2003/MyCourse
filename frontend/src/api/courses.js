@@ -1,7 +1,7 @@
 import axios from "axios";
 import {BASE_URL} from "../util/constants";
 
-export const getAllCourses = async () => {
+/*export const getAllCourses = async () => {
     return await axios
     .get(`${BASE_URL}/api/courses`)
     .then((res) => {
@@ -10,7 +10,20 @@ export const getAllCourses = async () => {
     .catch((err) => {
         console.log(err.message);
     });
-};
+};*/
+
+export const getAllCourses = fetch(`${BASE_URL}/api/courses`);
+
+getAllCourses
+  .then((response) => {
+    if(!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`);
+    }
+    return response.json();
+  })
+  .catch((error) => {
+    console.error(`Could not get products: ${error}`);
+  });
 
 export const createCourse = async (
     classID,

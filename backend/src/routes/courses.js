@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 const dbo = require("../db/conn");
 
-const db = dbo.getDb();
+
 // This section will help you get a list of all the documents.
 router.route("/api/courses").get(async function (req, res) {
-    
+  const db = dbo.getDb();
   
     db
       .collection("courses")
@@ -29,7 +29,7 @@ router.route("/api/createCourse").post(function (req, res) {
     meetingStopTime: req.body.meetingStopTime,
     //dateClassAdded: new Date()
   };
-
+  const db = dbo.getDb();
   db
     .collection("courses")
     .insertOne(matchDocument, function (err, result) {
@@ -46,7 +46,7 @@ router.route("/api/createCourse").post(function (req, res) {
 
 router.route("/api/deleteCourse").delete((req, res) => {
   const courseQuery = { classID: req.body.classID };
-
+  const db = dbo.getDb();
   db
     .collection("courses")
     .deleteOne(courseQuery, function(err, __result) {

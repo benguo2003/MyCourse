@@ -10,11 +10,12 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+          classID: 0,
           teacher: '',
-          courseid: 0,
-          coursename: '',
-          days: '',
-          times: ''
+          daysOfWeek: '',
+          className: '',
+          meetingStartTime: '',
+          meetingStopTime: ''
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
