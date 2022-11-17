@@ -40,7 +40,7 @@ useEffect(() => {
               return <MenuItem Value={10}>{c.teacher}</MenuItem>
           })}
           <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <MenuItem value={30}>{props.test[0]}</MenuItem>
         </Select>
       </FormControl>
     </Box>
