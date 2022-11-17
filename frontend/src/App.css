@@ -5,20 +5,3 @@
   font-weight: 800;
   font-size: 30px;
 }
-
-.submitForm {
-  margin-top: 40px;
-}
-
-.submitForm label{
-  display: block;
-  text-align: center;
-  font-size: 20px;
-  margin: 0 0 2vh 0;
-}
-
-.submitForm input{
-  display: block;
-  margin: auto;
-  margin-top: 10px;
-}

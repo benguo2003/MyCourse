@@ -1,7 +1,10 @@
 import React from 'react';
 import './App.css';
 import * as API from './api/courses'
-import BasicSelect from './filters';
+import BasicSelect from './components/filters';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 class App extends React.Component {
     constructor(props) {
@@ -35,7 +38,19 @@ class App extends React.Component {
                 <div className="title">
                     MyCourse
                 </div>
-                <BasicSelect test={this.state.values}/>
+                <Container>
+                    <Row className="justify-content-md-center">
+                        <Col xs lg="3">
+                            <BasicSelect test={this.state.values}/>
+                        </Col>
+                        <Col xs lg="3">
+                            <BasicSelect />
+                        </Col>
+                        <Col xs lg="3">
+                            <BasicSelect />
+                        </Col>
+                    </Row>
+                </Container>
             </div>
         )
     }
