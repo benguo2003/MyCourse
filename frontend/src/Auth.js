@@ -1,10 +1,29 @@
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import * as API from './api/users'
+import {BASE_URL} from "./util/constants";
+import { useNavigate } from "react-router-dom";
 
 export default function (props) {
   let [authMode, setAuthMode] = useState("signin")
+  const [data, setUsers] = useState([]);
+  let navigate = useNavigate();
+
   const inputRef = useRef(null);
   const inputRef2 = useRef(null);
+  const inputRef3 = useRef(null);
+  const inputRef4 = useRef(null);
+
+  useEffect(() => {
+    fetch(`${BASE_URL}/api/users`)
+      .then((response) => response.json())
+      .then((res) => {
+        setUsers(res)
+      })
+      .catch((error) => {
+        console.error(`Could not get products: ${error}`);
+      });
+    }, [])
+
 
   const changeAuthMode = () => {
     setAuthMode(authMode === "signin" ? "signup" : "signin")
@@ -12,6 +31,14 @@ export default function (props) {
 
   const registerUser = () => {
     API.createUser(inputRef.current.value, inputRef2.current.value);
+  }
+
+  const authenticate = () => {
+    {data.map((c) => {
+        if (inputRef3.current.value === c.email && inputRef4.current.value === c.password) {
+            navigate('/home');
+        }
+    })}
   }
 
   if (authMode === "signin") {
@@ -23,12 +50,13 @@ export default function (props) {
             <div className="text-center">
               Not registered yet?{" "}
               <span className="link-primary" onClick={changeAuthMode}>
-                Sign Up
+                <u>Sign Up</u> 
               </span>
             </div>
             <div className="form-group mt-3">
               <label>Email address</label>
               <input
+                ref={inputRef3}
                 type="email"
                 className="form-control mt-1"
                 placeholder="Enter email"
@@ -37,13 +65,14 @@ export default function (props) {
             <div className="form-group mt-3">
               <label>Password</label>
               <input
+                ref={inputRef4}
                 type="password"
                 className="form-control mt-1"
                 placeholder="Enter password"
               />
             </div>
             <div className="d-grid gap-2 mt-3">
-              <button type="submit" className="btn btn-primary">
+              <button type="button" className="btn btn-primary" onClick={authenticate}>
                 Submit
               </button>
             </div>
@@ -61,7 +90,7 @@ export default function (props) {
           <div className="text-center">
             Already registered?{" "}
             <span className="link-primary" onClick={changeAuthMode}>
-              Sign In
+              <u>Sign In</u>
             </span>
           </div>
           <div className="form-group mt-3">
