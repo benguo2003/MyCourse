@@ -1,10 +1,13 @@
 import React from 'react';
+import "bootstrap/dist/css/bootstrap.min.css"
 import './App.css';
 import * as API from './api/courses'
 import BasicSelect from './components/filters';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import Auth from "./Auth"
 
 class App extends React.Component {
     constructor(props) {
@@ -35,6 +38,12 @@ class App extends React.Component {
     render() {
         return(
             <div>
+                <BrowserRouter>
+                <Routes>
+                    <Route path="/auth" element={<Auth />} />
+                    <Route path="*" element={<Navigate to="/auth" replace />} />
+                </Routes>
+                </BrowserRouter>
                 <div className="title">
                     MyCourse
                 </div>

@@ -6,6 +6,7 @@ const port = process.env.PORT || 1000;
 app.use(cors());
 app.use(express.json());
 app.use(require("./src/routes/courses"));
+app.use(require("./src/routes/users"));
 // get driver connection
 const dbo = require("./src/db/conn");
  
