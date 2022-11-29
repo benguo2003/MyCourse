@@ -41,7 +41,7 @@ class App extends React.Component {
                 <Container>
                     <Row className="justify-content-md-center">
                         <Col xs lg="3">
-                            <BasicSelect test={this.state.values}/>
+                            <BasicSelect />
                         </Col>
                         <Col xs lg="3">
                             <BasicSelect />

@@ -7,8 +7,8 @@ import Select from '@mui/material/Select';
 import {BASE_URL} from "../util/constants";
 import {useState, useEffect} from "react"
 
-export default function BasicSelect() {
-  const [data, setTeacher] = React.useState([]);
+export default function BasicSelect(){
+  const [data, setTeacher] = useState([]);
 
 useEffect(() => {
   fetch(`${BASE_URL}/api/courses`)
@@ -22,25 +22,22 @@ useEffect(() => {
 }, [])
 
   const handleChange = (event) => {
-    setTeacher(event.target.value);
+    console.log(event.target.value);
   };
 
   return (
     <Box sx={{ maxWidth: 120 }}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Teacher</InputLabel>
-        <Select
+        <Select 
+          defaultValue="" 
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={data}
-          label="Teacher"
           onChange={handleChange}>
           
           {data.map((c) => {
-              return <MenuItem Value={10}>{c.teacher}</MenuItem>
+              return <MenuItem value={c.teacher} key={c.teacher}>{c.teacher}</MenuItem>
           })}
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>{props.test[0]}</MenuItem>
         </Select>
       </FormControl>
     </Box>
