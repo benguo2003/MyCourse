@@ -6,6 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Container from "react-bootstrap/Container";
 import {BASE_URL} from "../util/constants";
+import {TOKEN} from "../util/constants";
 
 import * as API from "../api/courses";
 import { stripBasename } from '@remix-run/router';
@@ -14,7 +15,6 @@ class SubjectSelect extends React.Component {
     constructor(props) {
         super(props)
         this.iter = 0;
-        this.TOKEN = "fx8OJu4mXz0a0zvMHUuPoIIHQCAy";
         this.selTerm = '23W';
         this.state = {
             subjects: [],
@@ -110,7 +110,7 @@ class SubjectSelect extends React.Component {
         var classes_url = `https://api.ucla.edu/sis/classes/${this.selTerm}/v1?subjectAreaCode=${this.state.selectedSubject}&PageSize=0`
         fetch(`${classes_url}`, {
             method: 'GET',
-            headers: { 'Authorization': `Bearer ${this.TOKEN}`,
+            headers: { 'Authorization': `Bearer ${TOKEN}`,
                     'Content-Type': 'application/json',
                     }})   
             .then((response) => response.json())
@@ -141,7 +141,7 @@ class SubjectSelect extends React.Component {
                 var classes_url = `https://api.ucla.edu/sis/classes/${this.selTerm}/v1?subjectAreaCode=${this.state.selectedSubject}&courseCatalogNumber=${this.state.selectedCourse}&PageSize=0`       
                 fetch(`${classes_url}`, {
                 method: 'GET',
-                headers: { 'Authorization': `Bearer ${this.TOKEN}`,
+                headers: { 'Authorization': `Bearer ${TOKEN}`,
                            'Content-Type': 'application/json',
                         }})
                 .then((response) => response.json())
@@ -176,7 +176,7 @@ class SubjectSelect extends React.Component {
                 var classes_url = `https://api.ucla.edu/sis/classsections/${this.selTerm}/${this.state.selectedSubject}/${this.state.selectedCourse}/${this.state.selectedSection}/classsectiondetail/v1`;
                 fetch(`${classes_url}`, {
                     method: 'GET',
-                    headers: { 'Authorization': `Bearer ${this.TOKEN}`,
+                    headers: { 'Authorization': `Bearer ${TOKEN}`,
                             'Content-Type': 'application/json',
                             }})   
                     .then((response) => response.json())
