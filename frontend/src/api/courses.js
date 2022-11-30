@@ -26,21 +26,31 @@ getAllCourses
   });
 
 export const createCourse = async (
-    classID,
-    teacher,
-    daysOfWeek,
-    className,
+    selectedCourse,
+    selectedSubject,
+    selectedSection,
+    classSecID,
+    gradeType,
+    classUnits,
+    meetingDaysofWeek,
     meetingStartTime,
-    meetingStopTime   
+    meetingStopTime,
+    building,
+    buildingRoomCode,  
   ) => {
     return await axios
       .post(`${BASE_URL}/api/createCourse`, {
-        classID: classID,
-        teacher: teacher,
-        daysOfWeek: daysOfWeek,
-        className: className,
+        selectedCourse: selectedCourse,
+        selectedSubject: selectedSubject,
+        selectedSection: selectedSection,
+        classSecID: classSecID,
+        gradeType: gradeType,
+        classUnits: classUnits,
+        meetingDaysofWeek: meetingDaysofWeek,
         meetingStartTime: meetingStartTime,
-        meetingStopTime: meetingStopTime, 
+        meetingStopTime: meetingStopTime,
+        building: building,
+        buildingRoomCode: buildingRoomCode,
       })
       .then((res) => {
         return res.data;

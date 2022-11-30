@@ -21,13 +21,17 @@ router.route("/api/courses").get(async function (req, res) {
 
 router.route("/api/createCourse").post(function (req, res) {
   const matchDocument = {
-    classID: req.body.classID,
-    teacher: req.body.teacher,
-    daysOfWeek: req.body.daysOfWeek,
-    className: req.body.className,
+    selectedCourse: req.body.selectedCourse,
+    selectedSubject: req.body.selectedSubject,
+    selectedSection: req.body.selectedSection,
+    classSecID: req.body.classSecID,
+    gradeType: req.body.gradeType,
+    classUnits: req.body.classUnits,
+    meetingDaysofWeek: req.body.meetingDaysofWeek,
     meetingStartTime: req.body.meetingStartTime,
     meetingStopTime: req.body.meetingStopTime,
-    //dateClassAdded: new Date()
+    building: req.body.building,
+    buildingRoomCode: req.body.buildingRoomCode,
   };
   const db = dbo.getDb();
   db
@@ -38,7 +42,7 @@ router.route("/api/createCourse").post(function (req, res) {
       }
       else
       {
-        console.log(`Added a new match:  ${result.className}`);
+        console.log(`Added a new match`);
         res.status (204).send();
       }
     });

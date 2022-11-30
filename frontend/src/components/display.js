@@ -6,11 +6,13 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import {BASE_URL} from "../util/constants";
 
+import * as API from "../api/courses";
+
 class SubjectSelect extends React.Component {
     constructor(props) {
         super(props)
         this.iter = 0;
-        this.TOKEN = "NM7f642TGCXpUQ831OTMyXrGcIMh";
+        this.TOKEN = "VZLBmP8rulvJbd8HuZ8l8HaCA9zs";
         this.selTerm = '23W';
         this.state = {
             subjects: [],
@@ -34,6 +36,7 @@ class SubjectSelect extends React.Component {
         this.handleChange1 = this.handleChange1.bind(this);
         this.handleChange2 = this.handleChange2.bind(this);
         this.getClassDetails = this.getClassDetails.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -150,6 +153,22 @@ class SubjectSelect extends React.Component {
         });
     };
 
+    handleSubmit = () => {
+        API.createCourse(
+            this.state.selectedSubject,
+            this.state.selectedCourse,
+            this.state.selectedSection,
+            this.state.classSecID,
+            this.state.gradeType,
+            this.state.classUnits,
+            this.state.meetingDaysofWeek,
+            this.state.meetingStartTime,
+            this.state.meetingStopTime,
+            this.state.building,
+            this.state.buildingRoomCode
+        );
+    };
+
     render() {
         return (
         <div class="row">
@@ -200,7 +219,7 @@ class SubjectSelect extends React.Component {
                 </Box>
             </div>
             <div class="col-sm" align="center">
-                <button class="button-51" role="button">
+                <button class="button-51" role="button" onClick={() => this.handleSubmit()}>
                 Submit
                 </button>
             </div>

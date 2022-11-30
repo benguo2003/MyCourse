@@ -87,7 +87,7 @@ class Home extends React.Component {
           <p>Time: {data.time}</p>
 
           <button
-            class="enrollbutton"
+            className="enrollbutton"
             type="button"
             onClick={() => this.deleteClass(data.id)}
           >
@@ -103,7 +103,7 @@ class Home extends React.Component {
           <p>Time: {data.time}</p>
 
           <button
-            class="enrollbutton"
+            className="enrollbutton"
             type="button"
             onClick={() => this.addClass(data.id)}
           >
