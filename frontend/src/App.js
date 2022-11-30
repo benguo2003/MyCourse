@@ -5,6 +5,7 @@ import './App.css';
 import './Home.css';
 import Auth from "./Auth";
 import Home from "./Home";
+import Classes from "./Classes";
 
 class App extends React.Component {
 
@@ -15,6 +16,7 @@ class App extends React.Component {
                 <Routes>
                     <Route path="/auth" element={<Auth />} />
                     <Route path="/home" element={<Home />} />
+                    <Route path="/classes" element={<Classes />} />
                     <Route path="*" element={<Navigate to="/auth" replace />} />
                 </Routes>
                 </BrowserRouter>

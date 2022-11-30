@@ -1,12 +1,9 @@
 import React from "react";
 import "./Home.css";
 import * as API from "./api/courses";
-import BasicSelect from "./components/filters";
 import SubjectSelect from './components/display';
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-
+import { Link } from "react-router-dom"
 
 class Home extends React.Component {
   constructor(props) {
@@ -135,20 +132,20 @@ class Home extends React.Component {
           <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="#">
-                  Home <span class="sr-only">(current)</span>
-                </a>
+                <Link to="/home" class="nav-link" href="#">
+                  Home
+                </Link>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <Link to="/classes" class="nav-link" href="#">
                   Classes
-                </a>
+                </Link>
               </li>
             </ul>
             <span class="navbar-text">
-              <a class="nav-link" href="#">
+              <Link to="/auth" class="nav-link" href="#">
                 Log Out
-              </a>
+              </Link>
             </span>
           </div>
         </nav>
