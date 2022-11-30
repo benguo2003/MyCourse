@@ -1,10 +1,15 @@
 import React from 'react';
 import './Home.css';
-import * as API from './api/courses'
-import BasicSelect from './components/filters';
+//import * as API from './api/courses'
+
+//import BasicSelect from './components/filters';
+import SubjectSelect from './components/display';
+
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+
 
 class Home extends React.Component {
     constructor(props) {
@@ -17,19 +22,6 @@ class Home extends React.Component {
           meetingStartTime: '',
           meetingStopTime: ''
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleChange(event) {
-        this.setState({teacher: event.target.value});
-      }
-    
-    handleSubmit(event) {
-        var x = API.getAllCourses();
-        console.log(x);
-        alert('A name was submitted: ' + this.state.teacher);
-        event.preventDefault();
     }
 
     render() {
@@ -40,14 +32,8 @@ class Home extends React.Component {
                 </div>
                 <Container>
                     <Row className="justify-content-md-center">
-                        <Col xs lg="3">
-                            <BasicSelect />
-                        </Col>
-                        <Col xs lg="3">
-                            <BasicSelect />
-                        </Col>
-                        <Col xs lg="3">
-                            <BasicSelect />
+                        <Col xs lg="0">
+                            <SubjectSelect />
                         </Col>
                     </Row>
                 </Container>

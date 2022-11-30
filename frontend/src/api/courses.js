@@ -10,7 +10,7 @@ import {BASE_URL} from "../util/constants";
     .catch((err) => {
         console.log(err.message);
     });
-};*/
+};
 
 export const getAllCourses = fetch(`${BASE_URL}/api/courses`);
 
@@ -23,7 +23,7 @@ getAllCourses
   })
   .catch((error) => {
     console.error(`Could not get products: ${error}`);
-  });
+  });*/
 
 export const createCourse = async (
     classID,

@@ -1,6 +1,6 @@
 import axios from "axios";
 import {BASE_URL} from "../util/constants";
-
+/*
 export const getAllUsers = fetch(`${BASE_URL}/api/users`);
 
 getAllUsers
@@ -12,7 +12,7 @@ getAllUsers
   })
   .catch((error) => {
     console.error(`Could not get users: ${error}`);
-  });
+  });*/
 
 export const createUser = async (
     email,
