@@ -1,49 +1,94 @@
-.title {
+.classes{
+    overflow-y: auto;
+    outline: 2px;
+    outline-style: solid;
+    outline-color: rgb(57, 61, 65); 
+    height: 500px;
+}
+
+.oneclass{
+    overflow-y: auto;
+    outline: 2px;
+    outline-style: solid;
+    outline-color: rgb(57, 61, 65); 
+    height: 100px;
+}
+
+.submitbutton {
+    background-color: #ffffff;
+    border: 1px solid rgb(225,225,225);
+    border-radius: 4px;
+    color: rgb(102, 102, 102);
+    cursor: pointer;
+    font-family: arial,sans-serif;
+    font-size: 18px;
+    height: 58px;
+    width: 130px;
+    padding: 0 16px;
     text-align: center;
-    margin-top: 20px;
-    color: rgb(45, 135, 220);
-    font-weight: 800;
-    font-size: 30px;
   }
-  
-  
-  .App {
-    background-color: white;
+
+.classdisplay{
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  position: relative;
+}
+
+.enrollbutton{
+    position: absolute;
+    right: 10px;
+    top: 30%;
+
+}
+/* CSS */
+
+.button-51 {
+  background-color: transparent;
+  border: 1px solid #266DB6;
+  box-sizing: border-box;
+  color: #292c30;
+  font-family: "Avenir Next LT W01 Bold",sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  padding: 16px 23px;
+  position: relative;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-51:hover,
+.button-51:active {
+  outline: 0;
+}
+
+.button-51:hover {
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.button-51:before {
+  background-color: #D5EDF6;
+  content: "";
+  height: calc(100% + 3px);
+  position: absolute;
+  right: -7px;
+  top: -9px;
+  transition: background-color 300ms ease-in;
+  width: 100%;
+  z-index: -1;
+}
+
+.button-51:hover:before {
+  background-color: #3992e5ff;
+}
+
+@media (min-width: 768px) {
+  .button-51 {
+    padding: 16px 32px;
   }
-  
-  .Auth-form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-  }
-  
-  .Auth-form {
-    width: 420px;
-    box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
-    padding-top: 30px;
-    padding-bottom: 20px;
-    border-radius: 8px;
-    background-color: white;
-  }
-  
-  .Auth-form-content {
-    padding-left: 12%;
-    padding-right: 12%;
-  }
-  
-  .Auth-form-title {
-    text-align: center;
-    margin-bottom: 1em;
-    font-size: 24px;
-    color: rgb(34, 34, 34);
-    font-weight: 800;
-  }
-  
-  label {
-    font-size: 14px;
-    font-weight: 600;
-    color: rgb(34, 34, 34);
-  }
-  
+}

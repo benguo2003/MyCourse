@@ -10,7 +10,7 @@ class SubjectSelect extends React.Component {
     constructor(props) {
         super(props)
         this.iter = 0;
-        this.TOKEN = "C3296KxXi8PAbAkzpB2pAOs1wRoa";
+        this.TOKEN = "NM7f642TGCXpUQ831OTMyXrGcIMh";
         this.selTerm = '23W';
         this.state = {
             subjects: [],
@@ -152,47 +152,58 @@ class SubjectSelect extends React.Component {
 
     render() {
         return (
-        <div>
-        <Box sx={{ maxWidth: 350 }}>
-            <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Subject Area</InputLabel>
-            <Select 
-                defaultValue="" 
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                onChange={this.handleChange}>
-                {this.state.subjects.map((c, i) => {
-                    return <MenuItem value={c.abbrev} key={i}>{c.subjArea}</MenuItem>
-                })}
-            </Select>
-            </FormControl>
-        </Box>
-        <Box sx={{ maxWidth: 160 }}>
-            <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Courses</InputLabel>
-            <Select 
-                defaultValue="" 
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                onChange={this.handleChange1}>
-                {this.state.courses.map((c, i) => {
-                    return <MenuItem value={c.courseCatalogNumber} key={i}>{c.subjectAreaCode + " " + c.courseCatalogNumberDisplay}</MenuItem>
-                })}
-            </Select>
-            </FormControl>
-        </Box>
-        <Box sx={{ maxWidth: 180 }}>
-            <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Lecture Number</InputLabel>
-            <Select 
-                defaultValue="" 
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                onChange={this.handleChange2}>
-                {this.runForClassLength(this.state.lengthOfClassNum)}
-            </Select>
-            </FormControl>
-        </Box>
+        <div class="row">
+            <div class="col-sm" align="center">
+                <Box sx={{ maxWidth: 200 }}>
+                    <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Subject Area</InputLabel>
+                    <Select 
+                        defaultValue="" 
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        onChange={this.handleChange}>
+                        {this.state.subjects.map((c, i) => {
+                            return <MenuItem value={c.abbrev} key={i}>{c.subjArea}</MenuItem>
+                        })}
+                    </Select>
+                    </FormControl>
+                </Box>
+            </div>
+            <div class="col-sm" align="center">
+                <Box sx={{ maxWidth: 200 }}>
+                    <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Courses</InputLabel>
+                    <Select 
+                        defaultValue="" 
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        onChange={this.handleChange1}>
+                        {this.state.courses.map((c, i) => {
+                            return <MenuItem value={c.courseCatalogNumber} key={i}>{c.subjectAreaCode + " " + c.courseCatalogNumberDisplay}</MenuItem>
+                        })}
+                    </Select>
+                    </FormControl>
+                </Box>
+            </div>
+            <div class="col-sm" align="center">
+                <Box sx={{ maxWidth: 200 }}>
+                    <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Lecture Number</InputLabel>
+                    <Select 
+                        defaultValue="" 
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        onChange={this.handleChange2}>
+                        {this.runForClassLength(this.state.lengthOfClassNum)}
+                    </Select>
+                    </FormControl>
+                </Box>
+            </div>
+            <div class="col-sm" align="center">
+                <button class="button-51" role="button">
+                Submit
+                </button>
+            </div>
         </div>
         );
     }
