@@ -1,7 +1,7 @@
 .title {
   text-align: center;
   margin-top: 20px;
-  color: rgb(45, 135, 220);
+  color: rgb(57, 61, 65);
   font-weight: 800;
   font-size: 30px;
 }
@@ -38,6 +38,10 @@
   font-size: 24px;
   color: rgb(34, 34, 34);
   font-weight: 800;
+}
+
+.scrollable {
+  overflow: scroll;
 }
 
 label {

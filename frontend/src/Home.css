@@ -1,0 +1,44 @@
+.classes{
+    overflow-y: auto;
+    outline: 2px;
+    outline-style: solid;
+    outline-color: rgb(57, 61, 65); 
+    height: 500px;
+}
+
+.oneclass{
+    overflow-y: auto;
+    outline: 2px;
+    outline-style: solid;
+    outline-color: rgb(57, 61, 65); 
+    height: 100px;
+}
+
+.submitbutton {
+    background-color: #ffffff;
+    border: 1px solid rgb(225,225,225);
+    border-radius: 4px;
+    color: rgb(102, 102, 102);
+    cursor: pointer;
+    font-family: arial,sans-serif;
+    font-size: 18px;
+    height: 58px;
+    width: 130px;
+    padding: 0 16px;
+    text-align: center;
+  }
+
+.classdisplay{
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  position: relative;
+}
+
+.enrollbutton{
+    position: absolute;
+    right: 10px;
+    top: 30%;
+
+}

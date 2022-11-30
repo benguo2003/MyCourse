@@ -10,16 +10,16 @@ import {useState, useEffect} from "react"
 export default function BasicSelect(){
   const [data, setTeacher] = useState([]);
 
-  useEffect(() => {
-    fetch(`${BASE_URL}/api/courses`)
-      .then((response) => response.json())
-      .then((res) => {
-        setTeacher(res)
-      })
-      .catch((error) => {
-        console.error(`Could not get products: ${error}`);
-      });
-  }, [])
+useEffect(() => {
+  fetch(`${BASE_URL}/api/courses`)
+    .then((response) => response.json())
+    .then((res) => {
+      setTeacher(res)
+    })
+    .catch((error) => {
+      console.error(`Could not get products: ${error}`);
+    });
+}, [])
 
   const handleChange = (event) => {
     console.log(event.target.value);
