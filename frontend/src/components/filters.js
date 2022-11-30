@@ -4,28 +4,40 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import {BASE_URL} from "../util/constants";
+import {useState, useEffect} from "react"
 
-export default function BasicSelect() {
-  const [age, setAge] = React.useState('');
+export default function BasicSelect(){
+  const [data, setTeacher] = useState([]);
+
+  useEffect(() => {
+    fetch(`${BASE_URL}/api/courses`)
+      .then((response) => response.json())
+      .then((res) => {
+        setTeacher(res)
+      })
+      .catch((error) => {
+        console.error(`Could not get products: ${error}`);
+      });
+  }, [])
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    console.log(event.target.value);
   };
 
   return (
     <Box sx={{ maxWidth: 120 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
-        <Select
+        <InputLabel id="demo-simple-select-label">Teacher</InputLabel>
+        <Select 
+          defaultValue="" 
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
-          label="Age"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          onChange={handleChange}>
+          
+          {data.map((c) => {
+              return <MenuItem value={c.teacher} key={c.teacher}>{c.teacher}</MenuItem>
+          })}
         </Select>
       </FormControl>
     </Box>
