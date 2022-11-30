@@ -94,7 +94,7 @@ class Home extends React.Component {
             type="button"
             onClick={() => this.deleteClass(data.id)}
           >
-            {data.id}
+            Drop
           </button>
         </div>
       ))
@@ -110,7 +110,7 @@ class Home extends React.Component {
             type="button"
             onClick={() => this.addClass(data.id)}
           >
-            {data.id}
+            Add
           </button>
         </div>
       ))
