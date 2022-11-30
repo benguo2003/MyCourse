@@ -214,7 +214,7 @@ class SubjectSelect extends React.Component {
         this.setState({
             newCourses: [
                 {
-                    id: this.state.classSecID,
+                    id: new Date(),
                     name: this.state.selectedSubjectDisp + " " + this.state.selectedCourseDisp,
                     section: this.state.selectedSection,
                     time: this.state.meetingStartTime + " \- " + this.state.meetingStopTime
