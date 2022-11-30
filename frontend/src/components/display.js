@@ -311,11 +311,12 @@ class SubjectSelect extends React.Component {
             </div>
             <br></br>
             <Container>
+            <br></br>
             <h3>Current Class</h3>
             <div className="oneclass">
             {newClasses}
             </div>
-
+            <br></br>
             <h3>Added Classes</h3>
 
             <div className="classes">

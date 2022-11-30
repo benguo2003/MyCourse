@@ -21,14 +21,15 @@ export default function (props) {
           </button>
           <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
+              <li class="nav-item">
                 <Link to="/home" class="nav-link" href="#">
                   Home
                 </Link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item active">
                 <Link to="/classes" class="nav-link" href="#">
                   Classes
+                  <span class="sr-only">(current)</span>
                 </Link>
               </li>
             </ul>
