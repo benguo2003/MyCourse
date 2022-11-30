@@ -54,6 +54,7 @@ class Home extends React.Component {
               <li class="nav-item active">
                 <Link to="/home" class="nav-link" href="#">
                   Home
+                  <span class="sr-only">(current)</span>
                 </Link>
               </li>
               <li class="nav-item">
@@ -72,6 +73,7 @@ class Home extends React.Component {
         <div className="title">MyCourse</div>
         <br></br>
         <SubjectSelect />
+        <br></br>
       </div>
     );
   }
