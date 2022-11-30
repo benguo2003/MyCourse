@@ -19,10 +19,29 @@ router.route("/api/users").get(async function (req, res) {
       });
 });
 
+router.route("/api/getUser").get(async function (req, res) {
+  const userid = {
+    userID: req.body.userID
+  }
+  const db = dbo.getDb();
+  
+  db
+    .collection("users")
+    .find({"userID": userid.userID})
+    .toArray(function (err, result) {
+      if (err) {
+        res.status(400).send("Error fetching listings!");
+     } else {
+        res.json(result);
+      }
+    });
+});
+
 router.route("/api/createtheUser").post(function (req, res) {
   const matchDocument = {
     email: req.body.email,
     password: req.body.password,
+    userID: req.body.userID
   };
   const db = dbo.getDb();
   db

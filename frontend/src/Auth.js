@@ -30,7 +30,7 @@ export default function (props) {
   }
 
   const registerUser = () => {
-    API.createUser(inputRef.current.value, inputRef2.current.value);
+    API.createUser(inputRef.current.value, inputRef2.current.value, inputRef.current.value + Date().toLocaleString());
   }
 
   const authenticate = () => {

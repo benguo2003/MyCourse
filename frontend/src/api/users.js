@@ -16,12 +16,14 @@ getAllUsers
 
 export const createUser = async (
     email,
-    password   
+    password,
+    userID
   ) => {
     return await axios
       .post(`${BASE_URL}/api/createtheUser`, {
         email: email,
         password: password,
+        userID: userID
       })
       .then((res) => {
         return res.data;
@@ -30,3 +32,18 @@ export const createUser = async (
         console.log(err.message);
       });
   };
+
+export const getCurrUser = async (
+  userID
+) => {
+  return await axios
+  .get(`${BASE_URL}/api/getUser`, {
+    userID: userID
+  })
+  .then((res) => {
+    return res.data;
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+};

@@ -49,7 +49,7 @@ router.route("/api/createCourse").post(function (req, res) {
 });
 
 router.route("/api/deleteCourse").delete((req, res) => {
-  const courseQuery = { classID: req.body.classID };
+  const courseQuery = { classSecID: req.body.classSecID };
   const db = dbo.getDb();
   db
     .collection("courses")

@@ -60,9 +60,13 @@ export const createCourse = async (
       });
   };
 
-export const deleteCourse = async () => {
+export const deleteCourse = async (
+  classSecID
+) => {
   return await axios
-    .delete(`${BASE_URL}/api/deleteCourse`)
+    .delete(`${BASE_URL}/api/deleteCourse`, {
+      data: { classSecID: classSecID }
+    })
     .then((res) => {
       return res.data;
     })
