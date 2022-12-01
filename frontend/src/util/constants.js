@@ -1,4 +1,4 @@
 const BASE_URL = "http://localhost:1000";
-const TOKEN = "BE2jxSy2R4k214Sp8AiZkT3kyALM";
+const TOKEN = "iFJfT31sZF7Pv5mMLvxHAYtbr7to";
 export {TOKEN};
 export {BASE_URL};

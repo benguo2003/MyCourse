@@ -6,15 +6,16 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Container from "react-bootstrap/Container";
 import {BASE_URL} from "../util/constants";
+import {TOKEN} from "../util/constants";
 
 import * as API from "../api/courses";
-import { stripBasename } from '@remix-run/router';
+//import { stripBasename } from '@remix-run/router';
 
 class SubjectSelect extends React.Component {
     constructor(props) {
         super(props)
         this.iter = 0;
-        this.TOKEN = "BE2jxSy2R4k214Sp8AiZkT3kyALM";
+        this.TOKEN = TOKEN;
         this.selTerm = '23W';
         this.state = {
             subjects: [],
@@ -152,13 +153,13 @@ class SubjectSelect extends React.Component {
     };
 
     runForClassLength = (len) => {
-        const elements = []
+        var elements = [];
         for(var j = 0; j < len; j++)
         {
 
-            elements.push(<MenuItem value={this.state.section[j].classNumber} key={j}>{"Lecture: " + this.state.section[j].classNumber}</MenuItem>)
+            elements.push(<MenuItem value={this.state.section[j].classNumber} key={j}>{"Lecture: " + this.state.section[j].classNumber}</MenuItem>);
         }
-        return elements
+        return elements;
     };
 
     handleChange2 = (event) => {
