@@ -300,8 +300,9 @@ class SubjectSelect extends React.Component {
           ))
 
         return (
-        <div class="row">
-            <div class="col-sm" align="center">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm" align="center">
                 <Box sx={{ maxWidth: 200 }}>
                     <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Subject Area</InputLabel>
@@ -352,6 +353,8 @@ class SubjectSelect extends React.Component {
                 Submit
                 </button>
             </div>
+            </div>
+        
             <Container>
             <br></br>
             <h3>Current Class</h3>
