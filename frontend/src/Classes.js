@@ -40,6 +40,10 @@ export default function (props) {
             </span>
           </div>
         </nav>
+        <div className="title">MyCourse</div>
+        <br></br>
+        {/* <SubjectSelect /> */}
+        <br></br>
     </div>
   )
 }
