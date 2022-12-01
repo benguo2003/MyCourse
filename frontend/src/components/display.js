@@ -48,6 +48,8 @@ class SubjectSelect extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.deleteClass = this.deleteClass.bind(this);
         this.addClass = this.addClass.bind(this);
+        this.generateDaysOfTheWeek = this.generateDaysOfTheWeek.bind(this);
+        
     }
 
     componentDidMount() {
@@ -211,11 +213,53 @@ class SubjectSelect extends React.Component {
                     id: new Date(),
                     name: this.state.selectedSubjectDisp + " " + this.state.selectedCourseDisp,
                     section: this.state.selectedSection,
-                    time: this.state.meetingStartTime + " \- " + this.state.meetingStopTime
+                    time: this.state.meetingStartTime + " \- " + this.state.meetingStopTime,
+                    meetingdays: this.state.meetingDaysofWeek
                 }
             ]
         })
     }
+
+    generateDaysOfTheWeek = (daystring) => {
+        let days = [];
+        let returnstring = "";
+        if(daystring.includes("M")){
+            days.push("Monday");
+        }
+        if(daystring.includes("T")){
+            days.push("Tuesday");
+        }
+        if(daystring.includes("W")){
+            days.push("Wednesday");
+        }
+        if(daystring.includes("R")){
+            days.push("Thursday");
+        }
+        if(daystring.includes("F")){
+            days.push("Friday");
+        }
+        
+        if(days.length === 1){
+            return days[0];
+        }
+        else if(days.length === 2){
+            returnstring = days[0] + " and " + days[1];
+            return returnstring;
+        }
+        else{
+            returnstring = ""
+            for (var i = 0; i < days.length; i++) {
+                if(i === days.length - 1){
+                    returnstring += "and " + days[i];
+                }
+                else{
+                    returnstring += days[i] + ", ";
+                }
+            }
+            return returnstring;
+        }
+    }
+
 
     render() {
         const classes = this.state.Courses.map((data) => (
@@ -223,7 +267,8 @@ class SubjectSelect extends React.Component {
               <h3>Course: {data.name}</h3>
               <p>Section: {data.section}</p>
               <p>Time: {data.time}</p>
-    
+              <p>Meeting Days: {this.generateDaysOfTheWeek(data.meetingdays)}</p>
+
               <button
                 className="enrollbutton"
                 type="button"
@@ -239,6 +284,8 @@ class SubjectSelect extends React.Component {
               <h3>Course: {data.name}</h3>
               <p>Section: {data.section}</p>
               <p>Time: {data.time}</p>
+              <p>Meeting Days: {this.generateDaysOfTheWeek(data.meetingdays)}</p>
+
     
               <button
                 className="enrollbutton"
@@ -303,13 +350,13 @@ class SubjectSelect extends React.Component {
                 Submit
                 </button>
             </div>
-            <br></br>
             <Container>
+            <br></br>
             <h3>Current Class</h3>
             <div className="oneclass">
             {newClasses}
             </div>
-
+            <br></br>
             <h3>Added Classes</h3>
 
             <div className="classes">
