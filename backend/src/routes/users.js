@@ -19,15 +19,14 @@ router.route("/api/users").get(async function (req, res) {
       });
 });
 
-router.route("/api/getUser").get(async function (req, res) {
-  const userid = {
-    userID: req.body.userID
+router.route("/api/getCurUser").get(async function (req, res) {
+  const userQuery = {
+    email: email
   }
   const db = dbo.getDb();
-  
   db
-    .collection("users")
-    .find({"userID": userid.userID})
+    .collection("curUser")
+    .find({"email": userQuery.email})
     .toArray(function (err, result) {
       if (err) {
         res.status(400).send("Error fetching listings!");
@@ -54,6 +53,41 @@ router.route("/api/createtheUser").post(function (req, res) {
       {
         console.log(`Added a new user:  ${result.email}`);
         res.status (204).send();
+      }
+    });
+});
+
+router.route("/api/createCurUser").post(function (req, res) {
+  const matchDocument = {
+    email: req.body.email
+  };
+  const db = dbo.getDb();
+  db
+    .collection("curUser")
+    .insertOne(matchDocument, function (err, result) {
+      if (err) {
+        res.status(400).send("Error inserting user!");
+      }
+      else
+      {
+        console.log(`Added a new curUser:  ${result.email}`);
+        res.status (204).send();
+      }
+    });
+});
+
+router.route("/api/deleteCurUser").delete((req, res) => {
+  const db = dbo.getDb();
+  db
+    .collection("curUser")
+    .deleteMany({}, function(err, __result) {
+      if(err)
+      {
+        res.status(400).send(`Error deleting course with id ${courseQuery.email}!`);
+      }
+      else
+      {
+        console.log("1 document deleted!");
       }
     });
 });

@@ -1,18 +1,5 @@
 import axios from "axios";
 import {BASE_URL} from "../util/constants";
-/*
-export const getAllUsers = fetch(`${BASE_URL}/api/users`);
-
-getAllUsers
-  .then((response) => {
-    if(!response.ok) {
-      throw new Error(`HTTP error: ${response.status}`);
-    }
-    return response.json();
-  })
-  .catch((error) => {
-    console.error(`Could not get users: ${error}`);
-  });*/
 
 export const createUser = async (
     email,
@@ -34,11 +21,11 @@ export const createUser = async (
   };
 
 export const getCurrUser = async (
-  userID
+  email
 ) => {
   return await axios
-  .get(`${BASE_URL}/api/getUser`, {
-    userID: userID
+  .get(`${BASE_URL}/api/getCurUser`, {
+    email: email
   })
   .then((res) => {
     return res.data;
@@ -47,3 +34,31 @@ export const getCurrUser = async (
     console.log(err.message);
   });
 };
+
+export const createCurUser = async (
+  email
+) => {
+  return await axios
+    .post(`${BASE_URL}/api/createCurUser`, {
+      email: email,
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
+
+export const deleteCurUser = async (
+) => {
+  return await axios
+    .delete(`${BASE_URL}/api/deleteCurUser`, {})
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+}

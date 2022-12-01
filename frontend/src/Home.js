@@ -1,6 +1,7 @@
 import React from "react";
 import "./Home.css";
 import * as API from "./api/courses";
+import * as APIUser from "./api/users";
 import SubjectSelect from './components/display';
 import { Link } from "react-router-dom"
 
@@ -17,6 +18,8 @@ class Home extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.logout = this.logout.bind(this);
+
   }
 
 
@@ -29,6 +32,10 @@ class Home extends React.Component {
     console.log(x);
     alert("A name was submitted: " + this.state.teacher);
     event.preventDefault();
+  }
+
+  logout() {
+    APIUser.deleteCurUser();
   }
 
   render() {
@@ -64,7 +71,7 @@ class Home extends React.Component {
               </li>
             </ul>
             <span class="navbar-text">
-              <Link to="/auth" class="nav-link" href="#">
+              <Link to="/auth" class="nav-link" href="#" onClick={this.logout}>
                 Log Out
               </Link>
             </span>
