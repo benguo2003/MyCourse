@@ -54,46 +54,53 @@
 
 
 .button-51 {
-  background-color: transparent;
-  border: 1px solid #266DB6;
+  appearance: none;
+  background-color: rgb(57, 61, 65);
+  border: 1px solid rgb(57, 61, 65);
+  border-radius: 6px;
   box-sizing: border-box;
-  color: #292c30;
-  font-size: 16px;
-  line-height: 24px;
-  width: 200px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: 18px;
   height: 55px;
-  padding: 16px 23px;
+  width: 200px;
   position: relative;
+  text-align: center;
   text-decoration: none;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+
 }
 
-.button-51:hover,
-.button-51:active {
-  outline: 0;
+.button-3:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
 }
 
-.button-51:hover {
-  background-color: transparent;
-  cursor: pointer;
+.button-3:hover {
+  background-color: #2c974b;
 }
 
-.button-51:before {
-  background-color: #D5EDF6;
-  content: "";
-  height: calc(100% + 3px);
-  position: absolute;
-  right: -7px;
-  top: -9px;
-  transition: background-color 300ms ease-in;
-  width: 100%;
-  z-index: -1;
+.button-3:focus {
+  box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+  outline: none;
 }
 
-.button-51:hover:before {
-  background-color: #3992e5ff;
+.button-3:disabled {
+  background-color: #94d3a2;
+  border-color: rgba(27, 31, 35, .1);
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
+}
+
+.button-3:active {
+  background-color: #298e46;
+  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
 }
 
 @media (min-width: 768px) {
