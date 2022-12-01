@@ -66,8 +66,8 @@ class SubjectSelect extends React.Component {
 
     handleAdd = () => {
         API.createCourse(
-            this.state.selectedSubjectDisp,
             this.state.selectedCourseDisp,
+            this.state.selectedSubjectDisp,
             this.state.selectedSection,
             this.state.classSecID,
             this.state.gradeType,
@@ -168,7 +168,6 @@ class SubjectSelect extends React.Component {
                             }})   
                     .then((response) => response.json())
                     .then((res) => {
-                    console.log("i am here bro");
                     this.setState({
                         fullClassDetail: res.classSectionDetail
                     });                    

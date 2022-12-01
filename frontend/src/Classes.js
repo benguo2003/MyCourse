@@ -1,13 +1,29 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import './style.css'
+import {useState, useEffect} from "react"
+import { BASE_URL } from "./util/constants";
 
 export default function (props) {
-  const classes = [
-    {name: "GEOG 5", location: "Franz Hall 1178", section: "1", time: "12-1:50", days: "MW", units: 4},
-    {name: "GEOG 7", location: "Haines Hall 39",section: "1", time: "10-11:50", days: "TR",units: 4},
-    {name: "MATH 32A", location: "Kaplan Hall A51", section: "1", time: "8-8:50", days: "MWF", units: 4},
-  ];
+  const [classes, setClasses] = useState([]);
+
+  useEffect(() => {
+    fetch(`${BASE_URL}/api/courses`)
+      .then((response) => response.json())
+      .then((res) => {
+        setClasses(res)
+      })
+      .catch((error) => {
+        console.error(`Could not get products: ${error}`);
+      });
+  }, [])
+
+  console.log(classes);
+
+  // const classes = [
+  //   {name: "GEOG 5", location: "Franz Hall 1178", section: "1", time: "12-1:50", days: "MW", units: 4},
+  //   {name: "GEOG 7", location: "Haines Hall 39",section: "1", time: "10-11:50", days: "TR",units: 4},
+  //   {name: "MATH 32A", location: "Kaplan Hall A51", section: "1", time: "8-8:50", days: "MWF", units: 4},
+  // ];
   return (
     <div>
               <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -49,13 +65,13 @@ export default function (props) {
         <div className="title">MyCourse</div>
         <ul>
           {classes.map((data) => (
-            <li key = {data.name}>
-              <p><b>Class Name: </b> {data.name}</p>
-              <p><b>Section: </b>Lec {data.section}</p>
-              <p><b>Location: </b>{data.location}</p>
-              <p><b>Time: </b>{data.time}</p>
-              <p><b>Days: </b>{data.days}</p>
-              <p><b>Units: </b>{data.units}</p>
+            <li key = {data.classSecID}>
+              <p><b>Class Name: </b> {data.selectedSubject + " " + data.selectedCourse}</p>
+              <p><b>Section: </b>Lecture {data.selectedSection}</p>
+              <p><b>Location: </b>{data.building}</p>
+              <p><b>Time: </b>{data.meetingStartTime + " \- " + data.meetingStopTime}</p>
+              <p><b>Days: </b>{data.meetingDaysofWeek}</p>
+              <p><b>Units: </b>{data.classUnits}</p>
             </li>
           ))}
         </ul>
