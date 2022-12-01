@@ -1,17 +1,19 @@
+.oneclass{
+  overflow-y: auto;
+  outline: 2px;
+  outline-style: solid;
+  outline-color: rgb(57, 61, 65); 
+  min-height: 100px;
+  height: auto;
+}
+
 .classes{
     overflow-y: auto;
     outline: 2px;
     outline-style: solid;
-    outline-color: rgb(57, 61, 65); 
-    height: 500px;
-}
-
-.oneclass{
-    overflow-y: auto;
-    outline: 2px;
-    outline-style: solid;
-    outline-color: rgb(57, 61, 65); 
-    height: 100px;
+    outline-color: rgb(57, 61, 65);
+    min-height: 200px;
+    height: auto;
 }
 
 .submitbutton {
@@ -49,10 +51,10 @@
   border: 1px solid #266DB6;
   box-sizing: border-box;
   color: #292c30;
-  font-family: "Avenir Next LT W01 Bold",sans-serif;
   font-size: 16px;
-  font-weight: 700;
   line-height: 24px;
+  width: 200px;
+  height: 55px;
   padding: 16px 23px;
   position: relative;
   text-decoration: none;

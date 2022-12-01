@@ -324,6 +324,7 @@ class SubjectSelect extends React.Component {
                 {classes}
                 </div>
             </div>
+            <br></br>
             </Container>
         </div>
         );
