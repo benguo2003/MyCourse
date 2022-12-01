@@ -211,6 +211,7 @@ class SubjectSelect extends React.Component {
     };
 
     handleSubmit = () => {
+
         this.setState({
             newCourses: [
                 {
