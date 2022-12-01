@@ -1,17 +1,19 @@
-.classes{
-    overflow-y: auto;
-    outline: 2px;
-    outline-style: solid;
-    outline-color: rgb(57, 61, 65); 
-    height: 500px;
+.oneclass{
+  overflow-y: auto;
+  outline: 3px;
+  outline-style: solid;
+  outline-color: rgb(57, 61, 65); 
+  min-height: 100px;
+  height: auto;
 }
 
-.oneclass{
+.classes{
     overflow-y: auto;
-    outline: 2px;
+    outline: 3px;
     outline-style: solid;
-    outline-color: rgb(57, 61, 65); 
-    height: 100px;
+    outline-color: rgb(57, 61, 65);
+    min-height: 200px;
+    height: auto;
 }
 
 .submitbutton {
@@ -29,30 +31,37 @@
   }
 
 .classdisplay{
-  padding-top: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
+  padding-top: 5px;
+  padding-right: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
   position: relative;
 }
 
-.enrollbutton{
+.classbutton{
     position: absolute;
-    right: 10px;
-    top: 30%;
+    right: 1%;
+    top: 40%;
 
 }
-/* CSS */
+
+.displayclassinfo{
+    margin: 0;
+    padding: 0;
+}
+
+.striped-border { border: 1px dashed rgb(57, 61, 65); margin-bottom: 0;}
+
 
 .button-51 {
   background-color: transparent;
   border: 1px solid #266DB6;
   box-sizing: border-box;
   color: #292c30;
-  font-family: "Avenir Next LT W01 Bold",sans-serif;
   font-size: 16px;
-  font-weight: 700;
   line-height: 24px;
+  width: 200px;
+  height: 55px;
   padding: 16px 23px;
   position: relative;
   text-decoration: none;

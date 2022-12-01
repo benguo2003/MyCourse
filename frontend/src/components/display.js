@@ -6,7 +6,6 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Container from "react-bootstrap/Container";
 import {BASE_URL} from "../util/constants";
-import {TOKEN} from "../util/constants";
 
 import * as API from "../api/courses";
 import { stripBasename } from '@remix-run/router';
@@ -15,6 +14,7 @@ class SubjectSelect extends React.Component {
     constructor(props) {
         super(props)
         this.iter = 0;
+        this.TOKEN = "NjB8CAXvRmggV3s2QQ5u2eMzQNPT";
         this.selTerm = '23W';
         this.state = {
             subjects: [],
@@ -46,6 +46,8 @@ class SubjectSelect extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.deleteClass = this.deleteClass.bind(this);
         this.addClass = this.addClass.bind(this);
+        this.generateDaysOfTheWeek = this.generateDaysOfTheWeek.bind(this);
+        
     }
 
     componentDidMount() {
@@ -90,15 +92,8 @@ class SubjectSelect extends React.Component {
     
     addClass = (ID) => {
         this.handleAdd();
-        const temp1 = this.state.newCourses.filter(c => c.id !== ID);
-        var temp2 = 0;
-        for (var i = 0; i < this.state.newCourses.length; i += 1) {
-            if (this.state.newCourses[i].id == ID) {
-                temp2 = this.state.newCourses[i];
-            }
-        }
-        this.state.Courses.push(temp2);
-        this.setState({newCourses: temp1});
+        this.state.Courses.push(this.state.newCourses[0]);
+        this.setState({newCourses: []});
     }
 
     handleChange = (event) => {
@@ -113,7 +108,7 @@ class SubjectSelect extends React.Component {
         var classes_url = `https://api.ucla.edu/sis/classes/${this.selTerm}/v1?subjectAreaCode=${this.state.selectedSubject}&PageSize=0`
         fetch(`${classes_url}`, {
             method: 'GET',
-            headers: { 'Authorization': `Bearer ${TOKEN}`,
+            headers: { 'Authorization': `Bearer ${this.TOKEN}`,
                     'Content-Type': 'application/json',
                     }})   
             .then((response) => response.json())
@@ -144,7 +139,7 @@ class SubjectSelect extends React.Component {
                 var classes_url = `https://api.ucla.edu/sis/classes/${this.selTerm}/v1?subjectAreaCode=${this.state.selectedSubject}&courseCatalogNumber=${this.state.selectedCourse}&PageSize=0`       
                 fetch(`${classes_url}`, {
                 method: 'GET',
-                headers: { 'Authorization': `Bearer ${TOKEN}`,
+                headers: { 'Authorization': `Bearer ${this.TOKEN}`,
                            'Content-Type': 'application/json',
                         }})
                 .then((response) => response.json())
@@ -168,7 +163,7 @@ class SubjectSelect extends React.Component {
                 var classes_url = `https://api.ucla.edu/sis/classsections/${this.selTerm}/${this.state.selectedSubject}/${this.state.selectedCourse}/${this.state.selectedSection}/classsectiondetail/v1`;
                 fetch(`${classes_url}`, {
                     method: 'GET',
-                    headers: { 'Authorization': `Bearer ${TOKEN}`,
+                    headers: { 'Authorization': `Bearer ${this.TOKEN}`,
                             'Content-Type': 'application/json',
                             }})   
                     .then((response) => response.json())
@@ -204,7 +199,8 @@ class SubjectSelect extends React.Component {
                         id: this.state.classSecID,
                         name: this.state.selectedSubjectDisp + " " + this.state.selectedCourseDisp,
                         section: this.state.selectedSection,
-                        time: this.state.meetingStartTime + " \- " + this.state.meetingStopTime
+                        time: this.state.meetingStartTime + " \- " + this.state.meetingStopTime,
+                        meetingdays: this.state.meetingDaysofWeek
                     },
                 ],
                 isSubmitted: true
@@ -213,31 +209,78 @@ class SubjectSelect extends React.Component {
         );
     };
 
+    generateDaysOfTheWeek = (daystring) => {
+        let days = [];
+        let returnstring = "";
+        if(daystring.includes("M")){
+            days.push("Monday");
+        }
+        if(daystring.includes("T")){
+            days.push("Tuesday");
+        }
+        if(daystring.includes("W")){
+            days.push("Wednesday");
+        }
+        if(daystring.includes("R")){
+            days.push("Thursday");
+        }
+        if(daystring.includes("F")){
+            days.push("Friday");
+        }
+        
+        if(days.length === 1){
+            return days[0];
+        }
+        else if(days.length === 2){
+            returnstring = days[0] + " and " + days[1];
+            return returnstring;
+        }
+        else{
+            returnstring = ""
+            for (var i = 0; i < days.length; i++) {
+                if(i === days.length - 1){
+                    returnstring += "and " + days[i];
+                }
+                else{
+                    returnstring += days[i] + ", ";
+                }
+            }
+            return returnstring;
+        }
+    }
+
+
     render() {
         const classes = this.state.Courses.map((data) => (
+            
             <div className="classdisplay">
-              <h3>Course: {data.name}</h3>
-              <p>Section: {data.section}</p>
-              <p>Time: {data.time}</p>
-    
+              <h3 className = "displayclassinfo">Course: {data.name}</h3>
+              <p className = "displayclassinfo" > Section: {data.section}</p>
+              <p className = "displayclassinfo"> Time: {data.time}</p>
+              <p className = "displayclassinfo"> Meeting Days: {this.generateDaysOfTheWeek(data.meetingdays)}</p>
+
               <button
-                className="enrollbutton"
+                className="classbutton"
                 type="button"
                 onClick={() => this.deleteClass(data.id)}
               >
                 Drop
               </button>
+              <hr className = "striped-border"></hr>
+
             </div>
           ))
         
           const newClasses = this.state.newCourses.map((data) => (
             <div className="classdisplay">
-              <h3>Course: {data.name}</h3>
-              <p>Section: {data.section}</p>
-              <p>Time: {data.time}</p>
+              <h3 className = "displayclassinfo"> Course: {data.name}</h3>
+              <p className = "displayclassinfo"> Section: {data.section}</p>
+              <p className = "displayclassinfo"> Time: {data.time}</p>
+              <p className = "displayclassinfo"> Meeting Days: {this.generateDaysOfTheWeek(data.meetingdays)}</p>
+
     
               <button
-                className="enrollbutton"
+                className="classbutton"
                 type="button"
                 onClick={() => this.addClass(data.id)}
               >
@@ -301,7 +344,6 @@ class SubjectSelect extends React.Component {
                 Submit
                 </button>
             </div>
-            <br></br>
             <Container>
             <br></br>
             <h3>Current Class</h3>
@@ -316,6 +358,7 @@ class SubjectSelect extends React.Component {
                 {classes}
                 </div>
             </div>
+            <br></br>
             </Container>
         </div>
         );
