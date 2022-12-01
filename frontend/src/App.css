@@ -5,6 +5,15 @@
   font-weight: 800;
   font-size: 30px;
 }
+.col{
+  column-width: 3;
+}
+.header{
+  text-align: center;
+}
+.nobullets{
+  list-style-type: none;
+}
 
 .App {
   background-color: white;

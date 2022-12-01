@@ -19,11 +19,11 @@ export default function (props) {
 
   console.log(classes);
 
-  // const classes = [
-  //   {name: "GEOG 5", location: "Franz Hall 1178", section: "1", time: "12-1:50", days: "MW", units: 4},
-  //   {name: "GEOG 7", location: "Haines Hall 39",section: "1", time: "10-11:50", days: "TR",units: 4},
-  //   {name: "MATH 32A", location: "Kaplan Hall A51", section: "1", time: "8-8:50", days: "MWF", units: 4},
-  // ];
+   const classesTest = [
+     {name: "GEOG 5", location: "Franz Hall 1178", section: "1", time: "12-1:50", days: "MW", units: 4},
+     {name: "GEOG 7", location: "Haines Hall 39",section: "1", time: "10-11:50", days: "TR",units: 4},
+     {name: "MATH 32A", location: "Kaplan Hall A51", section: "1", time: "8-8:50", days: "MWF", units: 4},
+   ];
   return (
     <div>
               <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -63,20 +63,57 @@ export default function (props) {
           </div>
         </nav>
         <div className="title">MyCourse</div>
-        <ul>
+        { <ul class="nobullets">
           {classes.map((data) => (
             <li key = {data.classSecID}>
-              <p><b>Class Name: </b> {data.selectedSubject + " " + data.selectedCourse}</p>
-              <p><b>Section: </b>Lecture {data.selectedSection}</p>
-              <p><b>Location: </b>{data.building}</p>
-              <p><b>Time: </b>{data.meetingStartTime + " \- " + data.meetingStopTime}</p>
-              <p><b>Days: </b>{data.meetingDaysofWeek}</p>
-              <p><b>Units: </b>{data.classUnits}</p>
+              <h1>{data.selectedSubject} {data.selectedCourse} </h1>
+              <div class = "row">
+                <div class = "col-sm">
+                  <p><b>Class Name: </b> {data.selectedSubject + " " + data.selectedCourse}</p>
+                  <p><b>Section: </b>Lecture {data.selectedSection}</p>
+                </div>
+                <div class = "col-sm">
+                  <p><b>Location: </b>{data.building}</p>
+                  <p><b>Time: </b>{data.meetingStartTime + " \- " + data.meetingStopTime}</p>
+                </div>
+                <div class = "col-sm">
+                  <p><b>Days: </b>{data.meetingDaysofWeek}</p>
+                  <p><b>Units: </b>{data.classUnits}</p>
+                </div>
+              </div>
+              <a href="https://www.google.com/" target = "_blank">Placeholder for map</a>
+              <br></br>
+              <br></br>
+              <br></br>
             </li>
           ))}
-        </ul>
+        </ul> }
         <br></br>
-        
+        {/* <ul class = "nobullets">
+          {classesTest.map((data) => (
+            <li key = {data.name}>
+              <h1>{data.name}</h1>
+              <div class = "row">
+                <div class = "col-sm">
+                  <p><b>Class Name: </b> {data.name}</p>
+                  <p><b>Section: </b>Lecture {data.section}</p>
+                </div>
+                <div class = "col-sm">
+                  <p><b>Location: </b>{data.location}</p>
+                  <p><b>Time: </b>{data.time}</p>
+                </div>
+                <div class = "col-sm">
+                  <p><b>Days: </b>{data.days}</p>
+                  <p><b>Units: </b>{data.units}</p>
+                </div>
+              </div>
+              <a href="https://www.google.com/" target = "_blank">Placeholder for map</a>
+              <br></br>
+              <br></br>
+              <br></br>
+            </li>
+          ))}
+        </ul> */}
         {/* <SubjectSelect /> */}
         <br></br>
         
