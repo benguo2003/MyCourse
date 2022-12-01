@@ -8,6 +8,8 @@ app.use(express.json());
 app.use(require("./src/routes/courses"));
 app.use(require("./src/routes/users"));
 app.use(require("./src/routes/subjectarea"));
+app.use(require("./src/routes/map"));
+
 // get driver connection
 const dbo = require("./src/db/conn");
  

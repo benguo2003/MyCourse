@@ -20,21 +20,6 @@ export const createUser = async (
       });
   };
 
-export const getCurrUser = async (
-  email
-) => {
-  return await axios
-  .get(`${BASE_URL}/api/getCurUser`, {
-    email: email
-  })
-  .then((res) => {
-    return res.data;
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
-};
-
 export const createCurUser = async (
   email
 ) => {
@@ -49,7 +34,6 @@ export const createCurUser = async (
       console.log(err.message);
     });
 };
-
 
 export const deleteCurUser = async (
 ) => {
