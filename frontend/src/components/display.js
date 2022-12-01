@@ -262,32 +262,35 @@ class SubjectSelect extends React.Component {
 
     render() {
         const classes = this.state.Courses.map((data) => (
+            
             <div className="classdisplay">
-              <h3>Course: {data.name}</h3>
-              <p>Section: {data.section}</p>
-              <p>Time: {data.time}</p>
-              <p>Meeting Days: {this.generateDaysOfTheWeek(data.meetingdays)}</p>
+              <h3 className = "displayclassinfo">Course: {data.name}</h3>
+              <p className = "displayclassinfo" > Section: {data.section}</p>
+              <p className = "displayclassinfo"> Time: {data.time}</p>
+              <p className = "displayclassinfo"> Meeting Days: {this.generateDaysOfTheWeek(data.meetingdays)}</p>
 
               <button
-                className="enrollbutton"
+                className="classbutton"
                 type="button"
                 onClick={() => this.deleteClass(data.id)}
               >
                 Drop
               </button>
+              <hr className = "striped-border"></hr>
+
             </div>
           ))
         
           const newClasses = this.state.newCourses.map((data) => (
             <div className="classdisplay">
-              <h3>Course: {data.name}</h3>
-              <p>Section: {data.section}</p>
-              <p>Time: {data.time}</p>
-              <p>Meeting Days: {this.generateDaysOfTheWeek(data.meetingdays)}</p>
+              <h3 className = "displayclassinfo"> Course: {data.name}</h3>
+              <p className = "displayclassinfo"> Section: {data.section}</p>
+              <p className = "displayclassinfo"> Time: {data.time}</p>
+              <p className = "displayclassinfo"> Meeting Days: {this.generateDaysOfTheWeek(data.meetingdays)}</p>
 
     
               <button
-                className="enrollbutton"
+                className="classbutton"
                 type="button"
                 onClick={() => this.addClass(data.id)}
               >
