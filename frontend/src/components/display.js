@@ -6,7 +6,6 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Container from "react-bootstrap/Container";
 import {BASE_URL} from "../util/constants";
-import {TOKEN} from "../util/constants";
 
 import * as API from "../api/courses";
 import { stripBasename } from '@remix-run/router';
@@ -15,6 +14,7 @@ class SubjectSelect extends React.Component {
     constructor(props) {
         super(props)
         this.iter = 0;
+        this.TOKEN = "BE2jxSy2R4k214Sp8AiZkT3kyALM";
         this.selTerm = '23W';
         this.state = {
             subjects: [],
@@ -91,15 +91,8 @@ class SubjectSelect extends React.Component {
     
     addClass = (ID) => {
         this.handleAdd();
-        const temp1 = this.state.newCourses.filter(c => c.id !== ID);
-        var temp2 = 0;
-        for (var i = 0; i < this.state.newCourses.length; i += 1) {
-            if (this.state.newCourses[i].id == ID) {
-                temp2 = this.state.newCourses[i];
-            }
-        }
-        this.state.Courses.push(temp2);
-        this.setState({newCourses: temp1});
+        this.state.Courses.push(this.state.newCourses[0]);
+        this.setState({newCourses: []});
     }
 
     handleChange = (event) => {
@@ -110,7 +103,7 @@ class SubjectSelect extends React.Component {
         var classes_url = `https://api.ucla.edu/sis/classes/${this.selTerm}/v1?subjectAreaCode=${this.state.selectedSubject}&PageSize=0`
         fetch(`${classes_url}`, {
             method: 'GET',
-            headers: { 'Authorization': `Bearer ${TOKEN}`,
+            headers: { 'Authorization': `Bearer ${this.TOKEN}`,
                     'Content-Type': 'application/json',
                     }})   
             .then((response) => response.json())
@@ -141,7 +134,7 @@ class SubjectSelect extends React.Component {
                 var classes_url = `https://api.ucla.edu/sis/classes/${this.selTerm}/v1?subjectAreaCode=${this.state.selectedSubject}&courseCatalogNumber=${this.state.selectedCourse}&PageSize=0`       
                 fetch(`${classes_url}`, {
                 method: 'GET',
-                headers: { 'Authorization': `Bearer ${TOKEN}`,
+                headers: { 'Authorization': `Bearer ${this.TOKEN}`,
                            'Content-Type': 'application/json',
                         }})
                 .then((response) => response.json())
@@ -176,7 +169,7 @@ class SubjectSelect extends React.Component {
                 var classes_url = `https://api.ucla.edu/sis/classsections/${this.selTerm}/${this.state.selectedSubject}/${this.state.selectedCourse}/${this.state.selectedSection}/classsectiondetail/v1`;
                 fetch(`${classes_url}`, {
                     method: 'GET',
-                    headers: { 'Authorization': `Bearer ${TOKEN}`,
+                    headers: { 'Authorization': `Bearer ${this.TOKEN}`,
                             'Content-Type': 'application/json',
                             }})   
                     .then((response) => response.json())
@@ -311,12 +304,11 @@ class SubjectSelect extends React.Component {
             </div>
             <br></br>
             <Container>
-            <br></br>
             <h3>Current Class</h3>
             <div className="oneclass">
             {newClasses}
             </div>
-            <br></br>
+
             <h3>Added Classes</h3>
 
             <div className="classes">
