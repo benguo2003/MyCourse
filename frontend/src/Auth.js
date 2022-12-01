@@ -36,6 +36,7 @@ export default function (props) {
   const authenticate = () => {
     {data.map((c) => {
         if (inputRef3.current.value === c.email && inputRef4.current.value === c.password) {
+            API.createCurUser(inputRef3.current.value);
             navigate('/home');
         }
     })}

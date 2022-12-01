@@ -6,15 +6,16 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Container from "react-bootstrap/Container";
 import {BASE_URL} from "../util/constants";
+import {TOKEN} from "../util/constants";
 
 import * as API from "../api/courses";
-import { stripBasename } from '@remix-run/router';
+//import { stripBasename } from '@remix-run/router';
 
 class SubjectSelect extends React.Component {
     constructor(props) {
         super(props)
         this.iter = 0;
-        this.TOKEN = "BE2jxSy2R4k214Sp8AiZkT3kyALM";
+        this.TOKEN = "NjB8CAXvRmggV3s2QQ5u2eMzQNPT";
         this.selTerm = '23W';
         this.state = {
             subjects: [],
@@ -26,7 +27,6 @@ class SubjectSelect extends React.Component {
             selectedCourse: "",
             selectedCourseDisp: "",
             selectedSection: "",
-            lengthOfClassNum: 0,
             classSecID: "",
             gradeType: "",
             classUnits: "",
@@ -36,12 +36,12 @@ class SubjectSelect extends React.Component {
             building: "",
             buildingRoomCode: "",
             Courses: [],
-            newCourses: []
+            newCourses: [],
+            isSubmitted: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleChange1 = this.handleChange1.bind(this);
         this.handleChange2 = this.handleChange2.bind(this);
-        this.getClassDetails = this.getClassDetails.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
@@ -67,8 +67,8 @@ class SubjectSelect extends React.Component {
 
     handleAdd = () => {
         API.createCourse(
-            this.state.selectedSubjectDisp,
             this.state.selectedCourseDisp,
+            this.state.selectedSubjectDisp,
             this.state.selectedSection,
             this.state.classSecID,
             this.state.gradeType,
@@ -99,7 +99,11 @@ class SubjectSelect extends React.Component {
 
     handleChange = (event) => {
       this.setState({ 
-        selectedSubject: event.target.value
+        selectedSubject: event.target.value,
+        courses: [],
+        sections: [],
+        selectedCourse: "",
+        selectedSection: ""
       },
       function() {
         var classes_url = `https://api.ucla.edu/sis/classes/${this.selTerm}/v1?subjectAreaCode=${this.state.selectedSubject}&PageSize=0`
@@ -111,28 +115,28 @@ class SubjectSelect extends React.Component {
             .then((response) => response.json())
             .then((res) => {
             this.setState({
-                courses: res.classes
+                courses: res.classes,
+                isSubmitted: false
             });
             })
             .catch((error) => {
-            console.error(`Could not get products: ${error}`);
+                console.error(`Could not get products: ${error}`);
             });
         }
       );
     };
 
     handleChange1 = (event) => {
-        const disp_formatted = event.target.value;
-        const tempval =typeof disp_formatted==="string" ?disp_formatted.split(':')[0]:""
-        const disp =typeof disp_formatted==="string" ?disp_formatted.split(':')[1]:""
-        console.log(tempval)
-        console.log(disp)
+        const disp = event.target.value;
+        const urlCourse =typeof disp==="string" ?disp.split(':')[0]:""
+        const disp_formatted =typeof disp==="string" ?disp.split(':')[1]:""
         this.setState({ 
-            selectedCourse: tempval,
-            selectedCourseDisp: disp
+            selectedCourse: urlCourse,
+            selectedCourseDisp: disp_formatted,
+            sections: [],
+            selectedSection: ""
             },
             function() {
-                
                 var classes_url = `https://api.ucla.edu/sis/classes/${this.selTerm}/v1?subjectAreaCode=${this.state.selectedSubject}&courseCatalogNumber=${this.state.selectedCourse}&PageSize=0`       
                 fetch(`${classes_url}`, {
                 method: 'GET',
@@ -142,25 +146,14 @@ class SubjectSelect extends React.Component {
                 .then((response) => response.json())
                 .then((res) => {
                     this.setState({
-                        section: res.classes[0].termSessionGroupCollection[0].classCollection,
-                        lengthOfClassNum: res.classes[0].termSessionGroupCollection[0].classCollection.length
-                    });
+                        sections: res.classes[0].termSessionGroupCollection[0].classCollection
+                    })
                 })
                 .catch((error) => {
                     console.error(`Could not get products: ${error}`);
                 });
             }
         );
-    };
-
-    runForClassLength = (len) => {
-        const elements = []
-        for(var j = 0; j < len; j++)
-        {
-
-            elements.push(<MenuItem value={this.state.section[j].classNumber} key={j}>{"Lecture: " + this.state.section[j].classNumber}</MenuItem>)
-        }
-        return elements
     };
 
     handleChange2 = (event) => {
@@ -178,20 +171,16 @@ class SubjectSelect extends React.Component {
                     .then((res) => {
                     this.setState({
                         fullClassDetail: res.classSectionDetail
-                    },
-                    function () {
-                        this.getClassDetails();
-                    }
-                    );                    
-                    })
-                    .catch((error) => {
+                    });                    
+                })
+                .catch((error) => {
                     console.error(`Could not get products: ${error}`);
-                    });
+                });
             }
         );
     };
 
-    getClassDetails = () => {
+    handleSubmit = () => {
         this.setState({ 
             selectedSubjectDisp: this.state.fullClassDetail.subjectAreaCode,
             classSecID: this.state.fullClassDetail.classSectionID,
@@ -202,22 +191,23 @@ class SubjectSelect extends React.Component {
             meetingStopTime: this.state.fullClassDetail.classSectionMeetingCollection[0].classSectionMeetingStopTime,
             building: this.state.fullClassDetail.classSectionMeetingCollection[0].classSectionBuildingCode,
             buildingRoomCode: this.state.fullClassDetail.classSectionMeetingCollection[0].classSectionBuildingRoomCode
-        });
+        },
+        function() {
+            this.setState({
+                newCourses: [
+                    {
+                        id: this.state.classSecID,
+                        name: this.state.selectedSubjectDisp + " " + this.state.selectedCourseDisp,
+                        section: this.state.selectedSection,
+                        time: this.state.meetingStartTime + " \- " + this.state.meetingStopTime,
+                        meetingdays: this.state.meetingDaysofWeek
+                    },
+                ],
+                isSubmitted: true
+            })
+        }
+        );
     };
-
-    handleSubmit = () => {
-        this.setState({
-            newCourses: [
-                {
-                    id: new Date(),
-                    name: this.state.selectedSubjectDisp + " " + this.state.selectedCourseDisp,
-                    section: this.state.selectedSection,
-                    time: this.state.meetingStartTime + " \- " + this.state.meetingStopTime,
-                    meetingdays: this.state.meetingDaysofWeek
-                }
-            ]
-        })
-    }
 
     generateDaysOfTheWeek = (daystring) => {
         let days = [];
@@ -328,7 +318,7 @@ class SubjectSelect extends React.Component {
                         id="demo-simple-select"
                         onChange={this.handleChange1}>
                         {this.state.courses.map((c, i) => {
-                            return <MenuItem value={c.courseCatalogNumber + ":" + c.courseCatalogNumberDisplay} key={i}>{c.subjectAreaCode + " " + c.courseCatalogNumberDisplay}</MenuItem>
+                            return <MenuItem value={c.courseCatalogNumber + ":" + c.courseCatalogNumberDisplay} key={i}>{this.state.isSubmitted ? "Submitted" : c.subjectAreaCode + " " + c.courseCatalogNumberDisplay}</MenuItem>
                         })}
                     </Select>
                     </FormControl>
@@ -343,7 +333,9 @@ class SubjectSelect extends React.Component {
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         onChange={this.handleChange2}>
-                        {this.runForClassLength(this.state.lengthOfClassNum)}
+                        {this.state.sections.map((c, i) => {
+                            return <MenuItem value={"00" + (i+1)} key={i}>{this.state.isSubmitted ? "Submitted" : "Lecture: 00" + (i+1)}</MenuItem>
+                        })}
                     </Select>
                     </FormControl>
                 </Box>
