@@ -6,9 +6,10 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Container from "react-bootstrap/Container";
 import {BASE_URL} from "../util/constants";
+import {TOKEN} from "../util/constants";
 
 import * as API from "../api/courses";
-import { stripBasename } from '@remix-run/router';
+//import { stripBasename } from '@remix-run/router';
 
 class SubjectSelect extends React.Component {
     constructor(props) {
