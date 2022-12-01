@@ -36,10 +36,11 @@ class SubjectSelect extends React.Component {
             gridVal: "",
             userEmail: "",
             buildingDisp: "",
+            classSectionNumber: "",
             Courses: [],
             newCourses: [],
             isSubmitted: false,
-
+            inDatabaseCourses: []
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleChange1 = this.handleChange1.bind(this);
@@ -96,10 +97,33 @@ class SubjectSelect extends React.Component {
         this.setState({Courses: temp});
     }
     
-    addClass = (ID) => {
-        this.handleAdd();
-        this.state.Courses.push(this.state.newCourses[0]);
-        this.setState({newCourses: []});
+    addClass = (ID, currentsection) => {
+        fetch(`${BASE_URL}/api/courses`)
+        .then((response) => response.json())
+        .then((res) => {
+            const inDatabaseCourses = res;
+            this.setState({
+                inDatabaseCourses
+            },
+            function() {
+                for (var i = 0; i < this.state.inDatabaseCourses.length; i += 1) {
+                    // console.log(this.state.inDatabaseCourses[i].classSecID);
+                    console.log("DB: " + this.state.inDatabaseCourses[i].selectedSection);
+                        console.log("local: " + currentsection);
+                    if( this.state.inDatabaseCourses[i].classSecID == ID && this.state.inDatabaseCourses[i].classSectionNumber == currentsection){
+                        
+                        return;
+                    }
+                }
+                this.handleAdd();
+                this.state.Courses.push(this.state.newCourses[0]);
+                this.setState({newCourses: []});
+            }
+            );
+        })
+        .catch((error) => {
+          console.error(`Could not get products: ${error}`);
+        }); 
     }
 
     handleChange = (event) => {
@@ -197,7 +221,8 @@ class SubjectSelect extends React.Component {
             meetingStartTime: this.state.fullClassDetail.classSectionMeetingCollection[0].classSectionMeetingStartTime,
             meetingStopTime: this.state.fullClassDetail.classSectionMeetingCollection[0].classSectionMeetingStopTime,
             building: this.state.fullClassDetail.classSectionMeetingCollection[0].classSectionBuildingCode,
-            buildingRoomCode: this.state.fullClassDetail.classSectionMeetingCollection[0].classSectionBuildingRoomCode
+            buildingRoomCode: this.state.fullClassDetail.classSectionMeetingCollection[0].classSectionBuildingRoomCode,
+            classSectionNumber: this.state.fullClassDetail.classSectionNumber
         },
         function() {
             const data = {classSectionBuildingCode: this.state.building};
@@ -310,7 +335,7 @@ class SubjectSelect extends React.Component {
               <button
                 className="classbutton"
                 type="button"
-                onClick={() => this.addClass(data.id)}
+                onClick={() => this.addClass(data.id, data.classSectionNumber)}
               >
                 Add
               </button>
