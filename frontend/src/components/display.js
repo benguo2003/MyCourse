@@ -296,7 +296,7 @@ class SubjectSelect extends React.Component {
     };
 
     generateDaysOfTheWeek = (daystring) => {
-        if(daystring === ""){
+        if(daystring === "UNSCHED"){
             return "N/A";
         }
         let days = [];

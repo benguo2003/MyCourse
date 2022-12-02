@@ -7,13 +7,6 @@
   height: auto;
 }
 
-.title {
-  /* text-align: center; */
-  color: greenyellow;
-  font-weight: 800;
-  font-size: 30px;
-}
-
 .navbarbutton{
   color: #fff;
   background-color: rgb(57, 61, 65);
