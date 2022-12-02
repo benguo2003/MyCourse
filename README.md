@@ -40,3 +40,4 @@ Our app relies on UCLA's Classes and Courses API, whose authentication token ref
 
 The database (MongoDB) connection URLs as well as the usernames and passwords are contained within the source code, so all that is required manually is UCLA's API token.
 
+UCLA will also destroy the API client key and secret given to us shortly after finals week, which would make the app nonfunctional.
