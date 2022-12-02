@@ -8,10 +8,25 @@
 }
 
 .title {
-  text-align: center;
+  /* text-align: center; */
   color: greenyellow;
   font-weight: 800;
   font-size: 30px;
+}
+
+.navbarbutton{
+  color: #fff;
+  background-color: rgb(57, 61, 65);
+  border: 1px solid rgb(57, 61, 65);
+  top: 50%;
+}
+
+.navbar-custom{
+  background-color: rgb(57, 61, 65);
+} 
+
+.bg-custom{
+  background-color: rgb(57, 61, 65);
 }
 
 .pageraiseddisplay{

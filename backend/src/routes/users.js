@@ -55,6 +55,7 @@ router.route("/api/createCurUser").post(function (req, res) {
   const matchDocument = {
     email: req.body.email
   };
+  console.log("NAH WHY TF U FAILING IF U IN HERE BRUH :((((((: " + req.body.email);
   const db = dbo.getDb();
   db
     .collection("curUser")
@@ -81,7 +82,7 @@ router.route("/api/deleteCurUser").delete((req, res) => {
       }
       else
       {
-        console.log("1 document deleted!");
+        console.log("1 CURR USER document deleted!");
       }
     });
 });

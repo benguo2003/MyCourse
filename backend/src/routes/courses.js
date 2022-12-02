@@ -2,11 +2,12 @@ const express = require("express");
 const router = express.Router();
 const dbo = require("../db/conn");
 
-router.route("/api/courses").get(async function (req, res) {
+router.route("/api/getUserCourses/:userEmail").get(async function (req, res) {
+  const userQuery = { userEmail: req.params.userEmail }; 
   const db = dbo.getDb();
     db
       .collection("courses")
-      .find({})
+      .find({userEmail: userQuery.userEmail})
       .toArray(function (err, result) {
         if (err) {
           res.status(400).send("Error fetching listings!");

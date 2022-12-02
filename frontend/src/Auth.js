@@ -57,8 +57,8 @@ export default function (props) {
           })}
           if(authenticated){
             API.createCurUser(inputRef3.current.value);
-            navigate('/home');
-          }
+            navigate('/home', {state: {email: c.email}});
+          } 
           else{
             setErrorMsg(true)
           }
