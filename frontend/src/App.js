@@ -17,6 +17,7 @@ class App extends React.Component {
                     <Route path="/auth" element={<Auth />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/classes" element={<ClassInfo />} />
+                    <Route path="/" element={<Navigate to="/auth" replace />} />
                     <Route path="*" element={<Navigate to="/home" replace />} />
                 </Routes>
                 </BrowserRouter>

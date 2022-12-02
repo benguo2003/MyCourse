@@ -1,17 +1,6 @@
 import axios from "axios";
 import {BASE_URL} from "../util/constants";
 
-export const getAllCourses = async () => {
-    return await axios
-    .get(`${BASE_URL}/api/courses`)
-    .then((res) => {
-        return res.data;
-    })
-    .catch((err) => {
-        console.log(err.message);
-    });
-};
-
 export const createCourse = async (
     selectedCourse,
     selectedSubject,

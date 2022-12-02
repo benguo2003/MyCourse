@@ -1,25 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Home.css";
-import * as API from "./api/courses";
 import * as APIUser from "./api/users";
 import SubjectSelect from './components/display';
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import { useLocation, useNavigate} from 'react-router-dom';
+import { BASE_URL } from "./util/constants";
 
-class Home extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+export default function (props) {
+  let navigate = useNavigate();
   
-  logout() {
+  const logout = () => {
     APIUser.deleteCurUser();
   }
 
-  render() {
+  const goToHome = () =>{
+    navigate('/home', {state: {email: state.email}});
+  }
+
+  const goToClass = () =>{
+    navigate('/classes', {state: {email: state.email}});
+  }
+
+  const { state } = useLocation();
+
     return (
       <div>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <a class="navbar-brand" href="#">
-            Hello USER
+             Hello <b style={{ color: 'lightblue'}}> {state.email} </b>
           </a>
           <button
             class="navbar-toggler"
@@ -35,19 +43,14 @@ class Home extends React.Component {
           <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                <Link to="/home" class="nav-link" href="#">
-                  Home
-                  <span class="sr-only">(current)</span>
-                </Link>
+                <button onClick={() => goToHome()}>Home</button>
               </li>
               <li class="nav-item">
-                <Link to="/classes" class="nav-link" href="#">
-                  Classes
-                </Link>
+              <button onClick={() => goToClass()}>Classes</button>
               </li>
             </ul>
             <span class="navbar-text">
-              <Link to="/auth" class="nav-link" href="#" onClick={this.logout}>
+              <Link to="/auth" class="nav-link" href="#" onClick={() => logout()}>
                 Log Out
               </Link>
             </span>
@@ -55,11 +58,8 @@ class Home extends React.Component {
         </nav>
         <div className="title">MyCourse</div>
         <br></br>
-        <SubjectSelect />
+        <SubjectSelect email={state.email} />
         <br></br>
       </div>
     );
-  }
 }
-
-export default Home;
