@@ -131,8 +131,8 @@ class SubjectSelect extends React.Component {
         selectedSubject: event.target.value,
         courses: [],
         sections: [],
-        selectedCourse: "",
-        selectedSection: ""
+        //selectedCourse: "",
+        //selectedSection: ""
       },
       function() {
         var classes_url = `https://api.ucla.edu/sis/classes/${this.selTerm}/v1?subjectAreaCode=${this.state.selectedSubject}&PageSize=0`
@@ -163,7 +163,7 @@ class SubjectSelect extends React.Component {
             selectedCourse: urlCourse,
             selectedCourseDisp: disp_formatted,
             sections: [],
-            selectedSection: ""
+            //selectedSection: ""
             },
             function() {
                 var classes_url = `https://api.ucla.edu/sis/classes/${this.selTerm}/v1?subjectAreaCode=${this.state.selectedSubject}&courseCatalogNumber=${this.state.selectedCourse}&PageSize=0`       
@@ -177,6 +177,21 @@ class SubjectSelect extends React.Component {
                     this.setState({
                         sections: res.classes[0].termSessionGroupCollection[0].classCollection
                     })
+                })
+                .catch((error) => {
+                    console.error(`Could not get products: ${error}`);
+                });
+                classes_url = `https://api.ucla.edu/sis/classsections/${this.selTerm}/${this.state.selectedSubject}/${this.state.selectedCourse}/${this.state.selectedSection}/classsectiondetail/v1`;
+                fetch(`${classes_url}`, {
+                    method: 'GET',
+                    headers: { 'Authorization': `Bearer ${TOKEN}`,
+                            'Content-Type': 'application/json',
+                            }})   
+                    .then((response) => response.json())
+                    .then((res) => {
+                    this.setState({
+                        fullClassDetail: res.classSectionDetail
+                    });                    
                 })
                 .catch((error) => {
                     console.error(`Could not get products: ${error}`);
@@ -371,7 +386,7 @@ class SubjectSelect extends React.Component {
                         id="demo-simple-select"
                         onChange={this.handleChange1}>
                         {this.state.courses.map((c, i) => {
-                            return <MenuItem value={c.courseCatalogNumber + ":" + c.courseCatalogNumberDisplay} key={i}>{this.state.isSubmitted ? "Submitted" : c.subjectAreaCode + " " + c.courseCatalogNumberDisplay}</MenuItem>
+                            return <MenuItem value={c.courseCatalogNumber + ":" + c.courseCatalogNumberDisplay} key={this.state.selectedSubject + toString(i)}>{this.state.isSubmitted ? "Submitted" : c.subjectAreaCode + " " + c.courseCatalogNumberDisplay}</MenuItem>
                         })}
                     </Select>
                     </FormControl>
@@ -387,7 +402,7 @@ class SubjectSelect extends React.Component {
                         id="demo-simple-select"
                         onChange={this.handleChange2}>
                         {this.state.sections.map((c, i) => {
-                            return <MenuItem value={"00" + (i+1)} key={i}>{this.state.isSubmitted ? "Submitted" : "Lecture: 00" + (i+1)}</MenuItem>
+                            return <MenuItem value={"00" + (i+1)} key={this.state.selectedSubject + this.state.selectedCourseDisp + toString(i)}>{this.state.isSubmitted ? "Submitted" : "Lecture: 00" + (i+1)}</MenuItem>
                         })}
                     </Select>
                     </FormControl>
