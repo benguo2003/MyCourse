@@ -70,8 +70,8 @@ class ClassInfo extends React.Component {
                 <div class = "row">
                   <div class = "col-sm" wProp = "col" >
                     <div class = "firstcolumn">
-                      <h2><b>Class Name: </b> </h2>
-                      <h3>{data.selectedSubject + " " + data.selectedCourse}</h3>
+                      <h2><b>Seats Available: </b> </h2>
+                      <h3>{data.classCapacityLeft < 0 ? "Full" : data.classCapacityLeft }</h3>
                       <br></br>
                       <br></br>
                       <h2><b>Section: </b></h2>
