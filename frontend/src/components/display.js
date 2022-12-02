@@ -47,7 +47,6 @@ class SubjectSelect extends React.Component {
         this.handleChange2 = this.handleChange2.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
         this.deleteClass = this.deleteClass.bind(this);
         this.addClass = this.addClass.bind(this);
         this.generateDaysOfTheWeek = this.generateDaysOfTheWeek.bind(this);
@@ -66,6 +65,24 @@ class SubjectSelect extends React.Component {
         .catch((error) => {
           console.error(`Could not get products: ${error}`);
         }); 
+
+        const data = {userEmail: this.props.email};
+        fetch(`${BASE_URL}/api/getUserCourses/${this.props.email}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+            params: JSON.stringify(data),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            this.setState({
+                Courses: data
+            })
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
     }
 
     handleAdd = () => {
@@ -88,18 +105,20 @@ class SubjectSelect extends React.Component {
         );
     };
 
-    handleDelete = () => {
-        API.deleteCourse(this.state.classSecID);
-    };
-
     deleteClass = (ID) => {
-        this.handleDelete();
-        const temp = this.state.Courses.filter(c => c.id !== ID);
-        this.setState({Courses: temp});
+        API.deleteCourse(ID);
+        window.location.reload();
     }
     
     addClass = (ID, currentsection) => {
-        fetch(`${BASE_URL}/api/courses`)
+        const data = {userEmail: this.state.userEmail};
+        fetch(`${BASE_URL}/api/getUserCourses/${this.props.email}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+            params: JSON.stringify(data),
+        })
         .then((response) => response.json())
         .then((res) => {
             const inDatabaseCourses = res;
@@ -108,16 +127,13 @@ class SubjectSelect extends React.Component {
             },
             function() {
                 for (var i = 0; i < this.state.inDatabaseCourses.length; i += 1) {
-                    // console.log(this.state.inDatabaseCourses[i].classSecID);
-                    console.log("DB: " + this.state.inDatabaseCourses[i].selectedSection);
-                        console.log("local: " + currentsection);
                     if( this.state.inDatabaseCourses[i].classSecID == ID && this.state.inDatabaseCourses[i].classSectionNumber == currentsection){
                         return;
                     }
                 }
                 this.handleAdd();
-                this.state.Courses.push(this.state.newCourses[0]);
                 this.setState({newCourses: []});
+                window.location.reload();
             }
             );
         })
@@ -210,7 +226,6 @@ class SubjectSelect extends React.Component {
     };
 
     handleSubmit = () => {
-        console.log(this.state.fullClassDetail.classSectionEnrollmentCapacityNumber)
         this.setState({ 
             selectedSubjectDisp: this.state.fullClassDetail.subjectAreaCode,
             classSecID: this.state.fullClassDetail.classSectionID,
@@ -256,7 +271,8 @@ class SubjectSelect extends React.Component {
                         meetingdays: this.state.meetingDaysofWeek
                     },
                 ],
-                isSubmitted: true
+                isSubmitted: true,
+                userEmail: this.props.email
             })
         }
         );
@@ -307,15 +323,15 @@ class SubjectSelect extends React.Component {
         const classes = this.state.Courses.map((data) => (
             
             <div className="classdisplay">
-              <h3 className = "displayclassinfo">Course: {data.name}</h3>
-              <p className = "displayclassinfo" > Section: {data.section}</p>
-              <p className = "displayclassinfo"> Time: {data.time}</p>
-              <p className = "displayclassinfo"> Meeting Days: {data.meetingdays}</p>
+              <h3 className = "displayclassinfo">Course: {data.selectedSubject + " " + data.selectedCourse}</h3>
+              <p className = "displayclassinfo" > Section: {data.selectedSection}</p>
+              <p className = "displayclassinfo"> Time: {data.meetingStartTime + " \- " + data.meetingStopTime}</p>
+              <p className = "displayclassinfo"> Meeting Days: {data.meetingDaysofWeek}</p>
 
               <button
                 className="classbutton"
                 type="button"
-                onClick={() => this.deleteClass(data.id)}
+                onClick={() => this.deleteClass(data.classSecID)}
               >
                 Drop
               </button>

@@ -2,36 +2,54 @@ import React from "react"
 import { Link } from "react-router-dom"
 import {useState, useEffect} from "react"
 import { BASE_URL } from "./util/constants";
+import { useLocation, useNavigate } from "react-router-dom"
 
-class ClassInfo extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      classes: [],
-      classSectionBuildingCode: [],
-      curBuilding: ""
-    }
-    // this.determineArea = this.determineArea.bind(this);
-  }
+export default function() {
+  const [classes, setClasses] = useState([]);
+  const { state } = useLocation();
 
-  parseTime(start, end){
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    fetch(`${BASE_URL}/api/getCurUsers`)
+      .then((response) => response.json())
+      .then((res) => {
+        const data = {userEmail: res[0].email};
+        fetch(`${BASE_URL}/api/getUserCourses/${res[0].email}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+            params: JSON.stringify(data),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            setClasses(data)
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+      })
+      .catch((error) => {
+        console.error(`Could not get products: ${error}`);
+      });
+    }, [])
+
+  const parseTime = (start, end) => {
     if(start === "" && end === ""){
       return "N/A";
     }
     return start + " - " + end;
-    
   }
 
-  componentDidMount(){
-    fetch(`${BASE_URL}/api/courses`)
-      .then((response) => response.json())
-      .then((res) => {
-        const classes = res;
-        this.setState({classes});
-      })
-     }
+  const goToHome = () =>{
+    navigate('/home', {state: {email: state.email}});
+  }
 
-    render() {
+  const goToClass = () =>{
+    navigate('/classes', {state: {email: state.email}});
+  }
+
     return (
       <div class = "wholeclassespage">
           <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -51,17 +69,12 @@ class ClassInfo extends React.Component {
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
               <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                  <Link to="/home" class="nav-link" href="#">
-                    Home
-                  </Link>
-                </li>
-                <li class="nav-item active">
-                  <Link to="/classes" class="nav-link" href="#">
-                    Classes
-                    <span class="sr-only">(current)</span>
-                  </Link>
-                </li>
+              <li class="nav-item">
+                <button onClick={() => goToHome()}>Home</button>
+              </li>
+              <li class="nav-item active">
+              <button onClick={() => goToClass()}>Classes</button>
+              </li>
               </ul>
               <span class="navbar-text">
                 <Link to="/auth" class="nav-link" href="#">
@@ -72,7 +85,7 @@ class ClassInfo extends React.Component {
           </nav>
           <div className="title">MyCourse</div>
           <div class = "nobullets">
-            {this.state.classes.map((data, i) => (
+            {classes.map((data, i) => (
               <li key = {data.classSecID}>
                 <h1 className = "header">{data.selectedSubject + " " + data.selectedCourse}</h1>
                 <div class = "row">
@@ -92,7 +105,7 @@ class ClassInfo extends React.Component {
                   </div>
                   <div class = "col-sm" wProp = "col">
                     <h2><b>Time: </b></h2>
-                    <h3>{ this.parseTime(data.meetingStartTime, data.meetingStopTime)}</h3>
+                    <h3>{ parseTime(data.meetingStartTime, data.meetingStopTime)}</h3>
                     <br></br>
                     <br></br>
                     <h2><b>Days: </b></h2>
@@ -121,7 +134,4 @@ class ClassInfo extends React.Component {
           
       </div>
     )
-  }
 }
-
-export default ClassInfo;
