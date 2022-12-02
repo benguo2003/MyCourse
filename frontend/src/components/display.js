@@ -13,7 +13,7 @@ class SubjectSelect extends React.Component {
     constructor(props) {
         super(props)
         this.iter = 0;
-        this.TOKEN = "EAaClsm0Wg7ERZtAfhQc6tgnFrl1";
+        this.TOKEN = TOKEN;
         this.selTerm = '23W';
         this.state = {
             subjects: [],
