@@ -53,8 +53,8 @@ export default function() {
     return (
       <div class = "wholeclassespage">
           <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">
-              Hello USER
+            <a class="navbar-brand" href="">
+              Hello {state.email}
             </a>
             <button
               class="navbar-toggler"

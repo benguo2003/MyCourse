@@ -26,7 +26,7 @@ export default function (props) {
     return (
       <div>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="">
              Hello <b style={{ color: 'lightblue'}}> {state.email} </b>
           </a>
           <button
