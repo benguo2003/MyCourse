@@ -13,7 +13,7 @@ class SubjectSelect extends React.Component {
     constructor(props) {
         super(props)
         this.iter = 0;
-        this.TOKEN = "EAaClsm0Wg7ERZtAfhQc6tgnFrl1";
+        this.TOKEN = "VJ3rRxIJMAMUGHA7JjZhKvphh5Gz";
         this.selTerm = '23W';
         this.state = {
             subjects: [],
@@ -37,6 +37,7 @@ class SubjectSelect extends React.Component {
             userEmail: "",
             buildingDisp: "",
             classSectionNumber: "",
+            classCapacityLeft: "",
             Courses: [],
             newCourses: [],
             isSubmitted: false,
@@ -83,7 +84,8 @@ class SubjectSelect extends React.Component {
             this.state.buildingRoomCode,
             this.state.gridVal,
             this.state.buildingDisp,
-            this.state.userEmail
+            this.state.userEmail,
+            this.state.classCapacityLeft
         );
     };
 
@@ -111,7 +113,6 @@ class SubjectSelect extends React.Component {
                     console.log("DB: " + this.state.inDatabaseCourses[i].selectedSection);
                         console.log("local: " + currentsection);
                     if( this.state.inDatabaseCourses[i].classSecID == ID && this.state.inDatabaseCourses[i].classSectionNumber == currentsection){
-                        
                         return;
                     }
                 }
@@ -210,8 +211,7 @@ class SubjectSelect extends React.Component {
     };
 
     handleSubmit = () => {
-        
-
+        console.log(this.state.fullClassDetail.classSectionEnrollmentCapacityNumber)
         this.setState({ 
             selectedSubjectDisp: this.state.fullClassDetail.subjectAreaCode,
             classSecID: this.state.fullClassDetail.classSectionID,
@@ -222,7 +222,8 @@ class SubjectSelect extends React.Component {
             meetingStopTime: this.state.fullClassDetail.classSectionMeetingCollection[0].classSectionMeetingStopTime,
             building: this.state.fullClassDetail.classSectionMeetingCollection[0].classSectionBuildingCode,
             buildingRoomCode: this.state.fullClassDetail.classSectionMeetingCollection[0].classSectionBuildingRoomCode,
-            classSectionNumber: this.state.fullClassDetail.classSectionNumber
+            classSectionNumber: this.state.fullClassDetail.classSectionNumber,
+            classCapacityLeft: parseInt(this.state.fullClassDetail.classSectionEnrollmentCapacityNumber,10) - parseInt(this.state.fullClassDetail.classSectionEnrollmentTotal,10)
         },
         function() {
             const data = {classSectionBuildingCode: this.state.building};

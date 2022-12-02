@@ -32,6 +32,7 @@ router.route("/api/createCourse").post(function (req, res) {
     gridVal: req.body.gridVal,
     buildingDisp: req.body.buildingDisp,
     userEmail: req.body.userEmail,
+    classCapacityLeft: req.body.classCapacityLeft
 
   };
   const db = dbo.getDb();

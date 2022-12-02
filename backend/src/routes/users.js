@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const dbo = require("../db/conn");
 
-
-// This section will help you get a list of all the documents.
 router.route("/api/users").get(async function (req, res) {
   const db = dbo.getDb();
     db
@@ -18,14 +16,11 @@ router.route("/api/users").get(async function (req, res) {
       });
 });
 
-router.route("/api/getCurUser").get(async function (req, res) {
-  const userQuery = {
-    email: email
-  }
+router.route("/api/getCurUsers").get(async function (req, res) {
   const db = dbo.getDb();
   db
     .collection("curUser")
-    .find({"email": userQuery.email})
+    .find({})
     .toArray(function (err, result) {
       if (err) {
         res.status(400).send("Error fetching listings!");
