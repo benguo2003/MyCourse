@@ -6,6 +6,43 @@
   font-size: 30px;
 }
 
+.header{
+  text-align: center;
+}
+.nobullets{
+  list-style-type: none;
+}
+.col{
+  width: 33.33%;
+}
+.mapImage{
+  width: auto;
+  height: auto;
+}
+
+.wholeclassespage{
+  overflow-x: hidden;
+}
+
+.firstcolumn{
+  padding-left:3%;
+}
+
+.thirdcolumn{
+  padding-right:3%;
+
+}
+
+.fullclass{
+  width: 100%;
+}
+.fontsize{
+  font-size: 100px;
+}
+.span{
+  column-span: all;
+}
+
 .App {
   background-color: white;
 }

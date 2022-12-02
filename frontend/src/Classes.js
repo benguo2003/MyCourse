@@ -25,7 +25,7 @@ class ClassInfo extends React.Component {
 
     render() {
     return (
-      <div>
+      <div class = "wholeclassespage">
           <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">
               Hello USER
@@ -63,20 +63,48 @@ class ClassInfo extends React.Component {
             </div>
           </nav>
           <div className="title">MyCourse</div>
-          <ul>
+          <div class = "nobullets">
             {this.state.classes.map((data, i) => (
               <li key = {data.classSecID}>
-                <p><b>Class Name: </b> {data.selectedSubject + " " + data.selectedCourse}</p>
-                <p><b>Section: </b>Lecture {data.selectedSection}</p>
-                <p><b>Location: </b>{data.buildingDisp}</p>
-                <p><b>Time: </b>{data.meetingStartTime + " \- " + data.meetingStopTime}</p>
-                <p><b>Days: </b>{data.meetingDaysofWeek}</p>
-                <p><b>Units: </b>{data.classUnits}</p>
-                <p> <img src={require(`../src/Assets/${data.gridVal}.png`)} /> 
-                </p>
+                <h1 className = "header">{data.selectedSubject + " " + data.selectedCourse}</h1>
+                <div class = "row">
+                  <div class = "col-sm" wProp = "col" >
+                    <div class = "firstcolumn">
+                      <h2><b>Class Name: </b> </h2>
+                      <h3>{data.selectedSubject + " " + data.selectedCourse}</h3>
+                      <br></br>
+                      <br></br>
+                      <h2><b>Section: </b></h2>
+                      <h3>Lecture {data.selectedSection}</h3>
+                      <br></br>
+                      <br></br>
+                      <h2><b>Location: </b></h2>
+                      <h3>{data.buildingDisp}</h3>
+                    </div>
+                  </div>
+                  <div class = "col-sm" wProp = "col">
+                    <h2><b>Time: </b></h2>
+                    <h3>{data.meetingStartTime + " \- " + data.meetingStopTime}</h3>
+                    <br></br>
+                    <br></br>
+                    <h2><b>Days: </b></h2>
+                    <h3>{data.meetingDaysofWeek}</h3>
+                    <br></br>
+                    <br></br>
+                    <h2><b>Units: </b></h2>
+                    <h3>{data.classUnits}</h3>
+                  </div>
+                  <div class = "col-sm" wProp = "col">
+                      <div class = "thirdcolumn">
+                      <p> <img className = "fullclass" src={require(`../src/Assets/${data.gridVal}.png`)} /></p>
+                      </div>
+                  </div>
+                </div>
+                <br></br>
               </li>
             ))}
-          </ul>
+          </div>
+        
           <br></br><br></br>
           
       </div>
