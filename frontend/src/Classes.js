@@ -53,7 +53,7 @@ export default function () {
     navigate("/auth")
   }
 
-  if (state !== null) {
+  if (state !== null && classes.length !== 0) {
     return (
       <div class="wholeclassespage">
         <nav class="navbar navbar-expand-lg navbar-custom">
@@ -173,6 +173,56 @@ export default function () {
         <br></br>
       </div>
     );
+  }
+  else if(state !== null && classes.length === 0){
+    {console.log("adscasdc")}
+    return (
+      <div class="wholeclassespage">
+        <nav class="navbar navbar-expand-lg navbar-custom">
+          <div class="navbarcenter">
+            <div class="title">MyCourse |</div>
+          </div>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarText"
+            aria-controls="navbarText"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarText">
+          <a class="navbar-brand" href="" style={{ color: "white" }}>
+              Hello, <b style={{ color: "lightblue" }}> {state.userName}. </b>
+            </a>
+            <ul class="navbar-nav ml-auto">
+              
+              <li class="nav-item">
+                <button class="button-30" onClick={() => goToHome()}>
+                  Home
+                </button>
+              </li>
+              <li class="nav-item active">
+                <button class="button-30" onClick={() => goToClass()}>
+                  Classes
+                </button>
+              </li>
+            </ul>
+
+            <span class="navbar-text">
+              <button class="button-30" onClick={() => logout()}>
+                  Log Out
+                </button>
+            </span>
+          </div>
+        </nav>
+        <p class="addClassesSuggestion"> Nothing to see here - add some classes! </p>
+      </div>
+    )
   }
   return (
     <div>

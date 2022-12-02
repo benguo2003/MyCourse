@@ -257,6 +257,7 @@ class SubjectSelect extends React.Component {
             classCapacityLeft: parseInt(this.state.fullClassDetail.classSectionEnrollmentCapacityNumber,10) - parseInt(this.state.fullClassDetail.classSectionEnrollmentTotal,10)
         },
         function() {
+            console.log("MeetingStartTime: " + this.state.meetingStartTime + ", MeetingStopTime: " + this.state.meetingStopTime)
             const data = {classSectionBuildingCode: this.state.building};
             fetch(`${BASE_URL}/api/getBuilding/${this.state.building}`, {
             method: 'GET',
@@ -284,12 +285,11 @@ class SubjectSelect extends React.Component {
                         id: this.state.classSecID,
                         name: this.state.selectedSubjectDisp + " " + this.state.selectedCourseDisp,
                         section: this.state.selectedSection,
-                        time: this.state.meetingStartTime + " \- " + this.state.meetingStopTime,
+                        time: this.parseTime(this.state.meetingStartTime, this.state.meetingStopTime),
                         meetingdays: this.state.meetingDaysofWeek
                     },
                 ],
                 userEmail: this.props.email,
-
             })
         }
         );
@@ -339,12 +339,12 @@ class SubjectSelect extends React.Component {
     }
 
     parseTime = (start, end) => {
-        if (/\d/.test(start)){
-            if (/\d/.test(end)){
-                return start + " - " + end;
-            }
+        if (start === "" || end === "")
+        {
+            return "N/A";
         }
-        return "N/A";
+
+        return start + " - " + end;
       }
 
     render() {
@@ -372,7 +372,7 @@ class SubjectSelect extends React.Component {
             <div className="classdisplay">
               <h3 className = "displayclassinfo"> Course: {data.name}</h3>
               <p className = "displayclassinfo"> Section: {data.section}</p>
-              <p className = "displayclassinfo"> Time: {this.parseTime(data.meetingStartTime, data.meetingStopTime)} </p>
+              <p className = "displayclassinfo"> Time: {data.time} </p>
               <p className = "displayclassinfo"> Meeting Days: {data.meetingdays}</p>
 
     
@@ -441,7 +441,7 @@ class SubjectSelect extends React.Component {
                 </Box>
             </div>
             <div class="col-sm" align="center">
-                <button class="button-51" role="button" onClick={() => this.handleSubmit()}>
+                <button class="button-27" role="button" onClick={() => this.handleSubmit()}>
                 Submit
                 </button>
             </div>
