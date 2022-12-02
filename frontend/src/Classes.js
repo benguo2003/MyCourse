@@ -54,8 +54,8 @@ export default function() {
 
     return (
       <div class = "wholeclassespage">
-          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          <a class="navbar-brand" href="">
+          <nav class="navbar navbar-expand-lg navbar-custom">
+          <a class="navbar-brand" href="" style={{ color: 'white'}}>
              Hello, <b style={{ color: 'lightblue'}}> {state.userName}. </b>
           </a>
             <button
@@ -72,14 +72,14 @@ export default function() {
             <div class="collapse navbar-collapse" id="navbarText">
               <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <button onClick={() => goToHome()}>Home</button>
+                <button class = "navbarbutton" onClick={() => goToHome()}>Home</button>
               </li>
               <li class="nav-item active">
-              <button onClick={() => goToClass()}>Classes</button>
+              <button class = "navbarbutton" onClick={() => goToClass()}>Classes</button>
               </li>
               </ul>
               <span class="navbar-text">
-                <Link to="/auth" class="nav-link" href="#">
+                <Link to="/auth" class="nav-link" href="#" style={{ color: 'white'}}>
                   Log Out
                 </Link>
               </span>
@@ -108,7 +108,7 @@ export default function() {
                   <div class = "col-sm" wProp = "col">
                     <div class = "classescolumn">
                       <h2><b>Time: </b></h2>
-                      <h3>{ this.parseTime(data.meetingStartTime, data.meetingStopTime)}</h3>
+                      <h3>{ parseTime(data.meetingStartTime, data.meetingStopTime)}</h3>
                       <br></br>
                       <br></br>
                       <h2><b>Days: </b></h2>

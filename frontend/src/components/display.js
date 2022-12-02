@@ -296,6 +296,9 @@ class SubjectSelect extends React.Component {
     };
 
     generateDaysOfTheWeek = (daystring) => {
+        if(daystring === ""){
+            return "N/A";
+        }
         let days = [];
         let returnstring = "";
         if(daystring.includes("M")){
@@ -336,10 +339,12 @@ class SubjectSelect extends React.Component {
     }
 
     parseTime = (start, end) => {
-        if(start === "" && end === ""){
-          return "N/A";
+        if (/\d/.test(start)){
+            if (/\d/.test(end)){
+                return start + " - " + end;
+            }
         }
-        return start + " - " + end;
+        return "N/A";
       }
 
     render() {
@@ -448,7 +453,7 @@ class SubjectSelect extends React.Component {
             {newClasses}
             </div>
             <br></br>
-            <h3>Added Classes</h3>
+            <h3>{this.state.userName}'s Added Classes</h3>
 
                 <div className="classes">
                     <div>
