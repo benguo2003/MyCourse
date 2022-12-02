@@ -77,7 +77,7 @@ class ClassInfo extends React.Component {
                 <h1 className = "header">{data.selectedSubject + " " + data.selectedCourse}</h1>
                 <div class = "row">
                   <div class = "col-sm" wProp = "col" >
-                    <div class = "firstcolumn">
+                    <div class = "classescolumn">
                       <h2><b>Seats Available: </b> </h2>
                       <h3>{data.classCapacityLeft < 0 ? "Full" : data.classCapacityLeft }</h3>
                       <br></br>
@@ -91,20 +91,22 @@ class ClassInfo extends React.Component {
                     </div>
                   </div>
                   <div class = "col-sm" wProp = "col">
-                    <h2><b>Time: </b></h2>
-                    <h3>{ this.parseTime(data.meetingStartTime, data.meetingStopTime)}</h3>
-                    <br></br>
-                    <br></br>
-                    <h2><b>Days: </b></h2>
-                    <h3>{data.meetingDaysofWeek}</h3>
-                    <br></br>
-                    <br></br>
-                    <h2><b>Units: </b></h2>
-                    <h3>{data.classUnits}</h3>
+                    <div class = "classescolumn">
+                      <h2><b>Time: </b></h2>
+                      <h3>{ this.parseTime(data.meetingStartTime, data.meetingStopTime)}</h3>
+                      <br></br>
+                      <br></br>
+                      <h2><b>Days: </b></h2>
+                      <h3>{data.meetingDaysofWeek}</h3>
+                      <br></br>
+                      <br></br>
+                      <h2><b>Units: </b></h2>
+                      <h3>{data.classUnits}</h3>
+                    </div>
                   </div>
                   <div class = "col-sm" wProp = "col">
-                      <div class = "thirdcolumn">
-                      <p> <img className = "fullclass" src={require(`../src/Assets/${data.gridVal}.png`)} /></p>
+                      <div class = "classescolumn">
+                        <p> <img className = "fullclass" src={require(`../src/Assets/${data.gridVal}.png`)} /></p>
                       </div>
                   </div>
                 </div>

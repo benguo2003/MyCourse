@@ -2,14 +2,14 @@ import React from "react";
 import "./Home.css";
 import * as API from "./api/courses";
 import * as APIUser from "./api/users";
-import SubjectSelect from './components/display';
-import { Link } from "react-router-dom"
+import SubjectSelect from "./components/display";
+import { Link } from "react-router-dom";
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
   }
-  
+
   logout() {
     APIUser.deleteCurUser();
   }
@@ -45,7 +45,9 @@ class Home extends React.Component {
                   Classes
                 </Link>
               </li>
+              
             </ul>
+            <div className="title text-center">MyCourse</div>
             <span class="navbar-text">
               <Link to="/auth" class="nav-link" href="#" onClick={this.logout}>
                 Log Out
@@ -53,10 +55,11 @@ class Home extends React.Component {
             </span>
           </div>
         </nav>
-        <div className="title">MyCourse</div>
-        <br></br>
-        <SubjectSelect />
-        <br></br>
+        <div class="wholebackground">
+          <br></br>
+          <SubjectSelect />
+          <br></br>
+        </div>
       </div>
     );
   }

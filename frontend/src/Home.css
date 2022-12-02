@@ -7,6 +7,26 @@
   height: auto;
 }
 
+.title {
+  text-align: center;
+  color: greenyellow;
+  font-weight: 800;
+  font-size: 30px;
+}
+
+.pageraiseddisplay{
+  background-color: white;
+  border-radius: 10px;
+}
+
+.addpadding{
+  padding-top: 1%;
+}
+
+.wholebackground{
+  background-color: rgb(231, 231, 231);
+}
+
 .classes{
     overflow-y: auto;
     outline: 3px;

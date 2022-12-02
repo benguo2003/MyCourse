@@ -1,7 +1,6 @@
 .title {
   text-align: center;
-  margin-top: 20px;
-  color: rgb(57, 61, 65);
+  color: greenyellow;
   font-weight: 800;
   font-size: 30px;
 }
@@ -27,13 +26,9 @@
   overflow-x: hidden;
 }
 
-.firstcolumn{
+.classescolumn{
   padding-left:3%;
-}
-
-.thirdcolumn{
   padding-right:3%;
-
 }
 
 .fullclass{
