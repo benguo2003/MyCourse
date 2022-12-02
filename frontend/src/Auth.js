@@ -7,7 +7,6 @@ export default function (props) {
   let [authMode, setAuthMode] = useState("signin")
   const [data, setUsers] = useState([]);
   const [curUsers, setCurUsers] = useState([]);
-  const [showErrorMsg, setErrorMsg] = useState(false)
 
   let navigate = useNavigate();
 
@@ -85,7 +84,6 @@ export default function (props) {
               </div>
             </div>
           </form>
-          <p> {showErrorMsg ? "Error! Someone is logged in with this email" : ""} </p>
         </div>
       </div>
     )

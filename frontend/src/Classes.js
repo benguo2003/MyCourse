@@ -51,9 +51,9 @@ export default function() {
     return (
       <div class = "wholeclassespage">
           <nav class="navbar navbar-expand-lg navbar-custom">
-          <a class="navbar-brand" href="" style={{ color: 'white'}}>
-             Hello, <b style={{ color: 'lightblue'}}> {state.userName}. </b>
-          </a>
+            <a class="navbar-brand" href="" style={{ color: 'white'}}>
+               Hello, <b style={{ color: 'lightblue'}}> {state.userName}. </b>
+            </a>
             <button
               class="navbar-toggler"
               type="button"
@@ -68,10 +68,10 @@ export default function() {
             <div class="collapse navbar-collapse" id="navbarText">
               <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <button class = "navbarbutton" onClick={() => goToHome()}>Home</button>
+                <button class = "button-86" onClick={() => goToHome()}>Home</button>
               </li>
               <li class="nav-item active">
-              <button class = "navbarbutton" onClick={() => goToClass()}>Classes</button>
+              <button class = "button-86" onClick={() => goToClass()}>Classes</button>
               </li>
               </ul>
               <span class="navbar-text">
@@ -81,7 +81,6 @@ export default function() {
               </span>
             </div>
           </nav>
-          <div className="title">MyCourse</div>
           <div class = "nobullets">
             {classes.map((data, i) => (
               <li key = {data.classSecID}>
@@ -123,15 +122,10 @@ export default function() {
                 </div>
                 <hr className = "striped-border"></hr>
                 <br></br>
-
               </li>
-              
             ))}
-            
           </div>
-        
           <br></br><br></br>
-          
       </div>
     )
   }
