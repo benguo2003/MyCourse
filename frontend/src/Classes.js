@@ -14,6 +14,14 @@ class ClassInfo extends React.Component {
     // this.determineArea = this.determineArea.bind(this);
   }
 
+  parseTime(start, end){
+    if(start === "" && end === ""){
+      return "N/A";
+    }
+    return start + " - " + end;
+    
+  }
+
   componentDidMount(){
     fetch(`${BASE_URL}/api/courses`)
       .then((response) => response.json())
@@ -84,7 +92,7 @@ class ClassInfo extends React.Component {
                   </div>
                   <div class = "col-sm" wProp = "col">
                     <h2><b>Time: </b></h2>
-                    <h3>{data.meetingStartTime + " \- " + data.meetingStopTime}</h3>
+                    <h3>{ this.parseTime(data.meetingStartTime, data.meetingStopTime)}</h3>
                     <br></br>
                     <br></br>
                     <h2><b>Days: </b></h2>
@@ -100,9 +108,13 @@ class ClassInfo extends React.Component {
                       </div>
                   </div>
                 </div>
+                <hr className = "striped-border"></hr>
                 <br></br>
+
               </li>
+              
             ))}
+            
           </div>
         
           <br></br><br></br>

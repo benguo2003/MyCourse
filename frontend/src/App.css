@@ -20,6 +20,9 @@
   height: auto;
 }
 
+.striped-border { border: 1px dashed rgb(57, 61, 65);}
+
+
 .wholeclassespage{
   overflow-x: hidden;
 }
