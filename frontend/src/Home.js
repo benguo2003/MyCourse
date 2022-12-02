@@ -9,8 +9,8 @@ import { BASE_URL } from "./util/constants";
 export default function (props) {
   let navigate = useNavigate();
   
-  const logout = () => {
-    APIUser.deleteCurUser();
+  const logout = () => { 
+    navigate('/auth')
   }
 
   const goToHome = () =>{
@@ -27,10 +27,11 @@ export default function (props) {
 
     return (
       <div>
-        <nav class="navbar navbar-expand-lg navbar-custom">
-          <a class="navbar-brand" href="" style={{ color: 'white'}}>
-             Hello, <b style={{ color: 'lightblue'}}> {state.userName}. </b>
-          </a>
+<nav class="navbar navbar-expand-lg navbar-custom">
+          <div class="navbarcenter">
+            <div class="title">MyCourse |</div>
+          </div>
+
           <button
             class="navbar-toggler"
             type="button"
@@ -42,23 +43,29 @@ export default function (props) {
           >
             <span class="navbar-toggler-icon"></span>
           </button>
+
           <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <button class = "navbarbutton" onClick={() => goToHome()}>Home</button>
-              </li>
+          <a class="navbar-brand" href="" style={{ color: "white" }}>
+              Hello, <b style={{ color: "lightblue" }}> {state.userName}. </b>
+            </a>
+            <ul class="navbar-nav ml-auto">
+              
               <li class="nav-item">
-                <button class = "navbarbutton" onClick={() => goToClass()}>Classes</button>
+                <button class="button-30" onClick={() => goToHome()}>
+                  Home
+                </button>
               </li>
-              <li class="nav-item title">
-                <div>MyCourse</div>
+              <li class="nav-item active">
+                <button class="button-30" onClick={() => goToClass()}>
+                  Classes
+                </button>
               </li>
             </ul>
-            
+
             <span class="navbar-text">
-              <Link to="/auth" style={{ color: 'white'}} class="nav-link" href="#" onClick={() => logout()}>
-                Log Out
-              </Link>
+                <button class="button-30" onClick={() => logout()}>
+                  Log Out
+                </button>
             </span>
           </div>
         </nav>
