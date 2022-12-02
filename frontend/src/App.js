@@ -8,7 +8,6 @@ import Home from "./Home";
 import ClassInfo from "./Classes";
 
 class App extends React.Component {
-
     render() {
         return(
             <div>

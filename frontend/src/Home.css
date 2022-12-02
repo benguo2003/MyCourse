@@ -5,6 +5,7 @@
   outline-color: rgb(57, 61, 65); 
   min-height: 100px;
   height: auto;
+  border-radius: 3px;
 }
 
 .navbar-custom{
@@ -35,6 +36,7 @@
     outline-color: rgb(57, 61, 65);
     min-height: 200px;
     height: auto;
+    border-radius: 3px;
 }
 
 .submitbutton {

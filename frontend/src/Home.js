@@ -70,10 +70,11 @@ export default function (props) {
           </div>
         </nav>
         <div class="wholebackground">
-        <br></br>
-        <SubjectSelect email={state.email} userName={state.userName} />
-        <br></br>
+          <br></br>
+          <SubjectSelect email={state.email} userName={state.userName} />
+          <br></br><br></br><br></br><br></br>
         </div>
       </div>
+      
     );
 }

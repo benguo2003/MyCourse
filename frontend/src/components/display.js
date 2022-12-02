@@ -390,6 +390,7 @@ class SubjectSelect extends React.Component {
         <div class="container">
         <div class = "pageraiseddisplay"  >
             <div class = "addpadding">
+            <br></br>
             <div class="row">
                 <div class="col-sm" align="center">
                 <Box sx={{ maxWidth: 200 }}>
@@ -445,23 +446,20 @@ class SubjectSelect extends React.Component {
                 </button>
             </div>
             </div>
-        
             <Container>
-            <br></br>
-            <h3>Current Class</h3>
-            <div className="oneclass">
-            {newClasses}
-            </div>
-            <br></br>
-            <h3>{this.state.userName}'s Added Classes</h3>
-
+                <br></br>
+                <h3>Selected Class</h3>
+                <div className="oneclass">
+                    {newClasses}
+                </div>
+                <br></br>
+                <h3>{this.state.userName}'s Added Classes</h3>
                 <div className="classes">
                     <div>
-                    {classes}
+                        {classes}
                     </div>
                 </div>
                 <br></br>
-                
             </Container>
             </div>
         </div>
