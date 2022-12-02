@@ -79,3 +79,4 @@ export const updateCourse = async (
       console.log(err.message);
     });
 }
+

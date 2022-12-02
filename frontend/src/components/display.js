@@ -8,6 +8,8 @@ import Container from "react-bootstrap/Container";
 import {BASE_URL} from "../util/constants";
 import {TOKEN} from "../util/constants";
 import * as API from "../api/courses";
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
 
 class SubjectSelect extends React.Component {
     constructor(props) {
@@ -39,9 +41,11 @@ class SubjectSelect extends React.Component {
             classCapacityLeft: "",
             userName: "",
             userRating: -1,
+            classRating: 0,
             Courses: [],
             newCourses: [],
-            inDatabaseCourses: []
+            inDatabaseCourses: [],
+            ratingsArray: [],
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleChange1 = this.handleChange1.bind(this);
@@ -51,6 +55,8 @@ class SubjectSelect extends React.Component {
         this.deleteClass = this.deleteClass.bind(this);
         this.addClass = this.addClass.bind(this);
         this.generateDaysOfTheWeek = this.generateDaysOfTheWeek.bind(this);
+        this.avg_review = this.avg_review.bind(this);
+        this.getRatings = this.getRatings.bind(this);
         
     }
 
@@ -145,6 +151,55 @@ class SubjectSelect extends React.Component {
         .catch((error) => {
           console.error(`Could not get products: ${error}`);
         }); 
+    }
+
+    avg_review = (arr) => {
+        var count = 0;
+        var total = 0;
+        var n_items = arr.length;
+        for (var i = 0; i < n_items; i += 1) {
+          if (arr[i] != -1) {
+            count += 1;
+            total += arr[i];
+          }
+        }
+        if(count === 0)
+        {
+            this.setState({
+                classRating: 0
+            })
+        }
+        else{
+            this.setState({
+                classRating: (total/count).toFixed(2)
+            })
+        }
+      }
+
+    getRatings = (selSubject, selCourse) => {
+        
+        fetch(`${BASE_URL}/api/ratings`, {
+            method: 'POST',
+            body: JSON.stringify({
+                selectedSubject: selSubject,
+                selectedCourse: selCourse
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+            })
+            .then((response) => response.json())
+            .then((res) => {
+                this.setState({
+                    ratingsArray: res.userRating
+                },
+                function () {
+                    this.avg_review(this.state.ratingsArray);
+                });
+            })
+            .catch((error) => {
+                console.error(`Could not get products: ${error}`);
+            }); 
     }
 
     handleChange = (event) => {
@@ -376,7 +431,8 @@ class SubjectSelect extends React.Component {
               <p className = "displayclassinfo"> Section: {data.section}</p>
               <p className = "displayclassinfo"> Time: {this.parseTime(data.meetingStartTime, data.meetingStopTime)} </p>
               <p className = "displayclassinfo"> Meeting Days: {data.meetingdays}</p>
-
+              <Typography component="legend">Read only</Typography>
+              <Rating name="read-only" value={this.state.classRating} readOnly />
     
               <button
                 className="classbutton"

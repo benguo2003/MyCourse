@@ -8,10 +8,16 @@ import * as API from "./api/courses"
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
+
 export default function () {
   const [classes, setClasses] = useState([]);
   const { state } = useLocation();
   const [rating, setRating] = useState(0);
+  const [classRating, setClassRating] = useState([]);
+  const [showRating, setShowRating] = useState(false);
+  const [testRating, setTestRating] = useState([2, 5, 3, 4, 1]);
 
   let navigate = useNavigate();
 
@@ -28,16 +34,14 @@ export default function () {
         .then((response) => response.json())
         .then((data) => {
           setClasses(data);
+          getRatings(data);
+          setShowRating(true);
         })
         .catch((error) => {
           console.error("Error:", error);
         });
     }
-  });
-
-  const RatingFormat = (value) => {
-    return `${value}`;
-  }
+  }, []);
 
   const handleRatingChange = (event, newVal) => {
     setRating(newVal);
@@ -45,6 +49,7 @@ export default function () {
 
   const handleSubmit = (classSecID, userEmail) => {
     API.updateCourse(classSecID, userEmail, rating);
+    window.location.reload();
   };
   
   const parseTime = (start, end) => {
@@ -65,6 +70,50 @@ export default function () {
       state: { email: state.email, userName: state.userName },
     });
   };
+
+  const avg_review = (arr) => {
+    var count = 0;
+    var total = 0;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].userRating != -1) {
+        count += 1;
+        total += arr[i].userRating;
+      }
+    }
+    if(count === 0)
+        {
+          classRating.push(0)
+        }
+        else{
+          classRating.push((total/count).toFixed(2))
+        }
+  };
+  
+
+  const getRatings = (classes) => {
+    for(var i=0; i<classes.length; i++)
+    {fetch(`${BASE_URL}/api/ratings`, {
+        method: 'POST',
+        body: JSON.stringify({
+          selectedSubject: classes[i].selectedSubject,
+          selectedCourse: classes[i].selectedCourse
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+        }})
+        .then((response) => response.json())
+        .then((res) => {
+            avg_review(res);
+        })
+        .catch((error) => {
+            console.error(`Could not get products: ${error}`);
+        }); }
+  };
+
+  // const displayRating = (classes, i) => {
+  //   getRatings(classes, i);
+  //   return classRating[i];
+  // }
 
   const logout = () => {
     navigate("/auth")
@@ -172,7 +221,6 @@ export default function () {
                           aria-label="Rating"
                           value={rating}
                           onChange={handleRatingChange}
-                          getAriaValueText={RatingFormat}
                           valueLabelDisplay="auto"
                           step={1}
                           marks
@@ -183,6 +231,9 @@ export default function () {
                     <button class="button-51" role="button" onClick={() => handleSubmit(data.classSecID, data.userEmail)}>
                       Submit
                     </button>
+                    <Typography component="legend">Read only</Typography>
+                    {console.log(parseInt(classRating[i], 10))}
+                    <Rating name="read-only" value={showRating ? parseInt(classRating[i], 10) : 0} readOnly />
 
                   </div>
                 </div>

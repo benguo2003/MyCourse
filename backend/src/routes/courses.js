@@ -89,4 +89,21 @@ router.route("/api/updateCourse").post((req, res) => {
     });
 });
 
+router.route("/api/ratings").post(async function (req, res) {
+  const userQuery = { selectedSubject: req.body.selectedSubject,
+                      selectedCourse: req.body.selectedCourse }; 
+  const db = dbo.getDb();
+    db
+      .collection("courses")
+      .find({selectedSubject: userQuery.selectedSubject, selectedCourse: userQuery.selectedCourse})
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+       } else {
+          res.json(result);
+        }
+      });
+});
+
+
 module.exports = router;
