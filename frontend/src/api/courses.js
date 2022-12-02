@@ -27,6 +27,7 @@ export const createCourse = async (
     gridVal,
     buildingDisp,
     userEmail,
+    classCapacityLeft
   ) => {
     return await axios
       .post(`${BASE_URL}/api/createCourse`, {
@@ -44,6 +45,7 @@ export const createCourse = async (
         gridVal: gridVal,
         buildingDisp: buildingDisp,
         userEmail: userEmail,
+        classCapacityLeft: classCapacityLeft
       })
       .then((res) => {
         return res.data;

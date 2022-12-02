@@ -8,32 +8,8 @@ import { Link } from "react-router-dom"
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      classID: 0,
-      teacher: "",
-      daysOfWeek: "",
-      className: "",
-      meetingStartTime: "",
-      meetingStopTime: "",
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.logout = this.logout.bind(this);
-
   }
-
-
-  handleChange(event) {
-    this.setState({ teacher: event.target.value });
-  }
-
-  handleSubmit(event) {
-    var x = API.getAllCourses();
-    console.log(x);
-    alert("A name was submitted: " + this.state.teacher);
-    event.preventDefault();
-  }
-
+  
   logout() {
     APIUser.deleteCurUser();
   }
