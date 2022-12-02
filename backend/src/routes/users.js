@@ -16,20 +16,6 @@ router.route("/api/users").get(async function (req, res) {
       });
 });
 
-router.route("/api/getCurUsers").get(async function (req, res) {
-  const db = dbo.getDb();
-  db
-    .collection("curUser")
-    .find({})
-    .toArray(function (err, result) {
-      if (err) {
-        res.status(400).send("Error fetching listings!");
-     } else {
-        res.json(result);
-      }
-    });
-});
-
 router.route("/api/createtheUser").post(function (req, res) {
   const matchDocument = {
     email: req.body.email,

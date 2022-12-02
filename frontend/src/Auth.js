@@ -18,16 +18,6 @@ export default function (props) {
   const SignUpNameField = useRef(null);
   const SignUpStudentIDField = useRef(null);
 
-  useEffect(() => {
-    fetch(`${BASE_URL}/api/getCurUsers`)
-      .then((response) => response.json())
-      .then((res) => {
-        setCurUsers(res)
-      })
-      .catch((error) => {
-        console.error(`Could not get products: ${error}`);
-      });
-  }, [])
 
   useEffect(() => {
     fetch(`${BASE_URL}/api/users`)
@@ -49,22 +39,10 @@ export default function (props) {
   }
 
   const authenticate = () => {
-    let authenticated = true
     {data.map((c) => {
         if (SignInEmailField.current.value === c.email && SignInPasswordField.current.value === c.password){
-          {curUsers.map((a) => {
-            if(SignInEmailField.current.value === a.email){
-              authenticated = false
-            }
-          })}
-          if(authenticated){
             API.createCurUser(SignInEmailField.current.value);
-            navigate('/home', {state: {email: c.email,
-                                      userName: c.userName}});
-          } 
-          else{
-            setErrorMsg(true)
-          }
+            navigate('/home', {state: {email: c.email, userName: c.userName}});
         }
     })}
   }

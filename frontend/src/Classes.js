@@ -11,29 +11,24 @@ export default function() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`${BASE_URL}/api/getCurUsers`)
-      .then((response) => response.json())
-      .then((res) => {
-        const data = {userEmail: res[0].email};
-        fetch(`${BASE_URL}/api/getUserCourses/${res[0].email}`, {
+    if(state !== null){
+      const data = {userEmail: state.email};
+      fetch(`${BASE_URL}/api/getUserCourses/${state.email}`, {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
         },
-            params: JSON.stringify(data),
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            setClasses(data)
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+        params: JSON.stringify(data),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        setClasses(data)
       })
       .catch((error) => {
-        console.error(`Could not get products: ${error}`);
+        console.error('Error:', error);
       });
-    }, [])
+    }
+  })
 
   const parseTime = (start, end) => {
     if(start === "" && end === ""){
@@ -52,6 +47,7 @@ export default function() {
       userName: state.userName}});
   }
 
+  if(state !== null){
     return (
       <div class = "wholeclassespage">
           <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -108,7 +104,7 @@ export default function() {
                   <div class = "col-sm" wProp = "col">
                     <div class = "classescolumn">
                       <h2><b>Time: </b></h2>
-                      <h3>{ this.parseTime(data.meetingStartTime, data.meetingStopTime)}</h3>
+                      <h3>{ parseTime(data.meetingStartTime, data.meetingStopTime)}</h3>
                       <br></br>
                       <br></br>
                       <h2><b>Days: </b></h2>
@@ -138,4 +134,13 @@ export default function() {
           
       </div>
     )
+  }
+  return(
+    <div>
+      <p class="warning"> Unauthorized Access: No Login Detected </p>
+      <Link to="/auth" class="nav-link" href="#" style={{ textAlign: 'center', fontSize: '30px', textDecoration: 'underline'}}>
+        Sign In Here
+      </Link>
+    </div>
+  )
 }

@@ -91,3 +91,12 @@ u {
 u:hover {
   cursor: pointer;
 }
+
+.warning {
+  text-align: center;
+  margin-top: 20%;
+  color: red;
+  font-weight: bold;
+  font-size: 50px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+}
