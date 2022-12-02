@@ -29,7 +29,7 @@ export default function (props) {
       <div>
         <nav class="navbar navbar-expand-lg navbar-custom">
           <a class="navbar-brand" href="" style={{ color: 'white'}}>
-             Hello <b style={{ color: 'white'}}> {state.email} </b>
+             Hello, <b style={{ color: 'lightblue'}}> {state.userName}. </b>
           </a>
           <button
             class="navbar-toggler"

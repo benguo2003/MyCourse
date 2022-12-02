@@ -50,8 +50,8 @@ export default function() {
   if(state !== null){
     return (
       <div class = "wholeclassespage">
-          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          <a class="navbar-brand" href="">
+          <nav class="navbar navbar-expand-lg navbar-custom">
+          <a class="navbar-brand" href="" style={{ color: 'white'}}>
              Hello, <b style={{ color: 'lightblue'}}> {state.userName}. </b>
           </a>
             <button
@@ -68,14 +68,14 @@ export default function() {
             <div class="collapse navbar-collapse" id="navbarText">
               <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <button onClick={() => goToHome()}>Home</button>
+                <button class = "navbarbutton" onClick={() => goToHome()}>Home</button>
               </li>
               <li class="nav-item active">
-              <button onClick={() => goToClass()}>Classes</button>
+              <button class = "navbarbutton" onClick={() => goToClass()}>Classes</button>
               </li>
               </ul>
               <span class="navbar-text">
-                <Link to="/auth" class="nav-link" href="#">
+                <Link to="/auth" class="nav-link" href="#" style={{ color: 'white'}}>
                   Log Out
                 </Link>
               </span>
