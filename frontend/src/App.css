@@ -1,8 +1,10 @@
 .title {
   text-align: center;
-  color: greenyellow;
+  color: #fff;
   font-weight: 800;
   font-size: 30px;
+  padding-right: 10px;
+  margin-top: -4px;
 }
 
 .header{
@@ -100,4 +102,3 @@ u:hover {
   font-size: 50px;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
 }
-

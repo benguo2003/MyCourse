@@ -16,7 +16,8 @@ export const createCourse = async (
     gridVal,
     buildingDisp,
     userEmail,
-    classCapacityLeft
+    classCapacityLeft,
+    userRating
   ) => {
     return await axios
       .post(`${BASE_URL}/api/createCourse`, {
@@ -34,7 +35,8 @@ export const createCourse = async (
         gridVal: gridVal,
         buildingDisp: buildingDisp,
         userEmail: userEmail,
-        classCapacityLeft: classCapacityLeft
+        classCapacityLeft: classCapacityLeft,
+        userRating: userRating
       })
       .then((res) => {
         return res.data;
@@ -50,6 +52,25 @@ export const deleteCourse = async (
   return await axios
     .delete(`${BASE_URL}/api/deleteCourse`, {
       data: { classSecID: classSecID }
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+}
+
+export const updateCourse = async (
+  classSecID,
+  userEmail,
+  userRating
+) => {
+  return await axios
+    .post(`${BASE_URL}/api/updateCourse`, {
+        classSecID: classSecID,
+        userEmail: userEmail,
+        userRating: userRating
     })
     .then((res) => {
       return res.data;

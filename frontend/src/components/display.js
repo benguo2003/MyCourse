@@ -38,6 +38,7 @@ class SubjectSelect extends React.Component {
             classSectionNumber: "",
             classCapacityLeft: "",
             userName: "",
+            userRating: -1,
             Courses: [],
             newCourses: [],
             inDatabaseCourses: []
@@ -104,7 +105,8 @@ class SubjectSelect extends React.Component {
             this.state.gridVal,
             this.state.buildingDisp,
             this.state.userEmail,
-            this.state.classCapacityLeft
+            this.state.classCapacityLeft,
+            this.state.userRating
         );
     };
 
@@ -296,7 +298,7 @@ class SubjectSelect extends React.Component {
     };
 
     generateDaysOfTheWeek = (daystring) => {
-        if(daystring === ""){
+        if(daystring === "UNSCHED"){
             return "N/A";
         }
         let days = [];
@@ -339,12 +341,12 @@ class SubjectSelect extends React.Component {
     }
 
     parseTime = (start, end) => {
-        if (/\d/.test(start)){
-            if (/\d/.test(end)){
-                return start + " - " + end;
-            }
+        if (start === "" || end === "")
+        {
+            return "N/A";        
         }
-        return "N/A";
+        
+        return start + " - " + end;
       }
 
     render() {
@@ -390,6 +392,7 @@ class SubjectSelect extends React.Component {
         <div class="container">
         <div class = "pageraiseddisplay"  >
             <div class = "addpadding">
+            <br></br>
             <div class="row">
                 <div class="col-sm" align="center">
                 <Box sx={{ maxWidth: 200 }}>
@@ -445,23 +448,20 @@ class SubjectSelect extends React.Component {
                 </button>
             </div>
             </div>
-        
             <Container>
-            <br></br>
-            <h3>Current Class</h3>
-            <div className="oneclass">
-            {newClasses}
-            </div>
-            <br></br>
-            <h3>{this.state.userName}'s Added Classes</h3>
-
+                <br></br>
+                <h3>Selected Class</h3>
+                <div className="oneclass">
+                    {newClasses}
+                </div>
+                <br></br>
+                <h3>{this.state.userName}'s Added Classes</h3>
                 <div className="classes">
                     <div>
-                    {classes}
+                        {classes}
                     </div>
                 </div>
                 <br></br>
-                
             </Container>
             </div>
         </div>
