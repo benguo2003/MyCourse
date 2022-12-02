@@ -2,11 +2,11 @@ import React, { useState, useRef, useEffect } from "react"
 import * as API from './api/users'
 import {BASE_URL} from "./util/constants";
 import { useNavigate } from "react-router-dom";
+import { rgbToHex } from "@mui/material";
 
 export default function (props) {
   let [authMode, setAuthMode] = useState("signin")
   const [data, setUsers] = useState([]);
-  const [curUsers, setCurUsers] = useState([]);
 
   let navigate = useNavigate();
 
@@ -40,7 +40,6 @@ export default function (props) {
   const authenticate = () => {
     {data.map((c) => {
         if (SignInEmailField.current.value === c.email && SignInPasswordField.current.value === c.password){
-            API.createCurUser(SignInEmailField.current.value);
             navigate('/home', {state: {email: c.email, userName: c.userName}});
         }
     })}
@@ -50,7 +49,7 @@ export default function (props) {
     return (
       <div>
         <div className="Auth-form-container">
-          <form className="Auth-form">
+          <form className="Auth-form" style={{backgroundColor: "#E7E7E7" }}>
             <div className="Auth-form-content">
               <h3 className="Auth-form-title">Sign In</h3>
               <div className="text-center">

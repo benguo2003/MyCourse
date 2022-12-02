@@ -33,7 +33,8 @@ router.route("/api/createCourse").post(function (req, res) {
     gridVal: req.body.gridVal,
     buildingDisp: req.body.buildingDisp,
     userEmail: req.body.userEmail,
-    classCapacityLeft: req.body.classCapacityLeft
+    classCapacityLeft: req.body.classCapacityLeft,
+    userRating: req.body.userRating
 
   };
   const db = dbo.getDb();
@@ -64,6 +65,26 @@ router.route("/api/deleteCourse").delete((req, res) => {
       else
       {
         console.log("1 document deleted!");
+      }
+    });
+});
+
+router.route("/api/updateCourse").post((req, res) => {
+  const query = {
+    classSecID: req.body.classSecID,
+    userEmail: req.body.userEmail
+  };
+  const db = dbo.getDb();
+  db
+    .collection("courses")
+    .updateOne(query, {$set: {userRating: req.body.userRating}}, function(err, __result) {
+      if(err)
+      {
+        res.status(400).send(`Error updating course!`);
+      }
+      else
+      {
+        console.log("1 course document updated!");
       }
     });
 });

@@ -38,39 +38,4 @@ router.route("/api/createtheUser").post(function (req, res) {
     });
 });
 
-router.route("/api/createCurUser").post(function (req, res) {
-  const matchDocument = {
-    email: req.body.email
-  };
-  const db = dbo.getDb();
-  db
-    .collection("curUser")
-    .insertOne(matchDocument, function (err, result) {
-      if (err) {
-        res.status(400).send("Error inserting user!");
-      }
-      else
-      {
-        console.log(`Added a new curUser:  ${result.email}`);
-        res.status (204).send();
-      }
-    });
-});
-
-router.route("/api/deleteCurUser").delete((req, res) => {
-  const db = dbo.getDb();
-  db
-    .collection("curUser")
-    .deleteMany({}, function(err, __result) {
-      if(err)
-      {
-        res.status(400).send(`Error deleting course with id ${courseQuery.email}!`);
-      }
-      else
-      {
-        console.log("1 CURR USER document deleted!");
-      }
-    });
-});
-
 module.exports = router;

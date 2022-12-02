@@ -2,11 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { BASE_URL } from "./util/constants";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom"
+import * as API from "./api/courses"
+
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
 
 export default function () {
   const [classes, setClasses] = useState([]);
   const { state } = useLocation();
+  const [rating, setRating] = useState(0);
 
   let navigate = useNavigate();
 
@@ -30,6 +35,18 @@ export default function () {
     }
   });
 
+  const RatingFormat = (value) => {
+    return `${value}`;
+  }
+
+  const handleRatingChange = (event, newVal) => {
+    setRating(newVal);
+  };
+
+  const handleSubmit = (classSecID, userEmail) => {
+    API.updateCourse(classSecID, userEmail, rating);
+  };
+  
   const parseTime = (start, end) => {
     if (start === "" && end === "") {
       return "N/A";
@@ -55,7 +72,7 @@ export default function () {
 
   if (state !== null && classes.length !== 0) {
     return (
-      <div class="wholeclassespage">
+      <div class="wholeclassespage wholebackground">
         <nav class="navbar navbar-expand-lg navbar-custom">
           <div class="navbarcenter">
             <div class="title">MyCourse |</div>
@@ -100,55 +117,60 @@ export default function () {
         </nav>
         <div class="nobullets">
           {classes.map((data, i) => (
+            <div>
+              <br></br>
+            <div class = "container pageraiseddisplay addpadding">
             <li key={data.classSecID}>
               <h1 className="header">
                 {data.selectedSubject + " " + data.selectedCourse}
               </h1>
-              <div class="row">
+              <hr className="striped-border"></hr>
+              <br></br>
+              <div class="row displayaclass">
                 <div class="col-sm" wProp="col">
                   <div class="classescolumn">
-                    <h2>
-                      <b>Seats Available: </b>{" "}
-                    </h2>
                     <h3>
+                      <b>Seats Available: </b>{" "}
+                    </h3>
+                    <h5>
                       {data.classCapacityLeft <= 0
                         ? "Full"
                         : data.classCapacityLeft}
-                    </h3>
+                    </h5>
                     <br></br>
                     <br></br>
-                    <h2>
+                    <h3>
                       <b>Section: </b>
-                    </h2>
-                    <h3>Lecture {data.selectedSection}</h3>
+                    </h3>
+                    <h5>Lecture {data.selectedSection}</h5>
                     <br></br>
                     <br></br>
-                    <h2>
+                    <h3>
                       <b>Location: </b>
-                    </h2>
-                    <h3>{data.buildingDisp}</h3>
+                    </h3>
+                    <h5>{data.buildingDisp}</h5>
                   </div>
                 </div>
                 <div class="col-sm" wProp="col">
                   <div class="classescolumn">
-                    <h2>
-                      <b>Time: </b>
-                    </h2>
                     <h3>
-                      {parseTime(data.meetingStartTime, data.meetingStopTime)}
+                      <b>Time: </b>
                     </h3>
+                    <h5>
+                      {parseTime(data.meetingStartTime, data.meetingStopTime)}
+                    </h5>
                     <br></br>
                     <br></br>
-                    <h2>
+                    <h3>
                       <b>Days: </b>
-                    </h2>
-                    <h3>{data.meetingDaysofWeek}</h3>
+                    </h3>
+                    <h5>{data.meetingDaysofWeek}</h5>
                     <br></br>
                     <br></br>
-                    <h2>
+                    <h3>
                       <b>Units: </b>
-                    </h2>
-                    <h3>{data.classUnits}</h3>
+                    </h3>
+                    <h5>{data.classUnits}</h5>
                   </div>
                 </div>
                 <div class="col-sm" wProp="col">
@@ -166,9 +188,15 @@ export default function () {
               <hr className="striped-border"></hr>
               <br></br>
             </li>
+            </div>
+            </div>
           ))}
         </div>
-
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
         <br></br>
         <br></br>
       </div>

@@ -38,6 +38,7 @@ class SubjectSelect extends React.Component {
             classSectionNumber: "",
             classCapacityLeft: "",
             userName: "",
+            userRating: -1,
             Courses: [],
             newCourses: [],
             inDatabaseCourses: []
@@ -104,7 +105,8 @@ class SubjectSelect extends React.Component {
             this.state.gridVal,
             this.state.buildingDisp,
             this.state.userEmail,
-            this.state.classCapacityLeft
+            this.state.classCapacityLeft,
+            this.state.userRating
         );
     };
 
@@ -341,9 +343,9 @@ class SubjectSelect extends React.Component {
     parseTime = (start, end) => {
         if (start === "" || end === "")
         {
-            return "N/A";
+            return "N/A";        
         }
-
+        
         return start + " - " + end;
       }
 
@@ -357,7 +359,7 @@ class SubjectSelect extends React.Component {
               <p className = "displayclassinfo"> Meeting Days: {data.meetingDaysofWeek}</p>
 
               <button
-                className="classbutton"
+                className="button-28"
                 type="button"
                 onClick={() => this.deleteClass(data.classSecID)}
               >
@@ -377,7 +379,7 @@ class SubjectSelect extends React.Component {
 
     
               <button
-                className="classbutton"
+                className="button-28"
                 type="button"
                 onClick={() => this.addClass(data.id, data.classSectionNumber)}
               >
