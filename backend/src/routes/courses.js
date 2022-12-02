@@ -29,7 +29,10 @@ router.route("/api/createCourse").post(function (req, res) {
     meetingStopTime: req.body.meetingStopTime,
     building: req.body.building,
     buildingRoomCode: req.body.buildingRoomCode,
-    userEmail: req.body.userEmail
+    gridVal: req.body.gridVal,
+    buildingDisp: req.body.buildingDisp,
+    userEmail: req.body.userEmail,
+
   };
   const db = dbo.getDb();
   db

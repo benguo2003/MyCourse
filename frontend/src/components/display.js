@@ -7,15 +7,13 @@ import Select from '@mui/material/Select';
 import Container from "react-bootstrap/Container";
 import {BASE_URL} from "../util/constants";
 import {TOKEN} from "../util/constants";
-
 import * as API from "../api/courses";
-//import { stripBasename } from '@remix-run/router';
 
 class SubjectSelect extends React.Component {
     constructor(props) {
         super(props)
         this.iter = 0;
-        this.TOKEN = "no9Spi2XVswdkqjhKNG4JgRvX0Af";
+        this.TOKEN = "VJ3rRxIJMAMUGHA7JjZhKvphh5Gz";
         this.selTerm = '23W';
         this.state = {
             subjects: [],
@@ -35,6 +33,9 @@ class SubjectSelect extends React.Component {
             meetingStopTime: "",
             building: "",
             buildingRoomCode: "",
+            gridVal: "",
+            userEmail: "",
+            buildingDisp: "",
             classSectionNumber: "",
             Courses: [],
             newCourses: [],
@@ -79,7 +80,10 @@ class SubjectSelect extends React.Component {
             this.state.meetingStartTime,
             this.state.meetingStopTime,
             this.state.building,
-            this.state.buildingRoomCode
+            this.state.buildingRoomCode,
+            this.state.gridVal,
+            this.state.buildingDisp,
+            this.state.userEmail
         );
     };
 
@@ -206,12 +210,14 @@ class SubjectSelect extends React.Component {
     };
 
     handleSubmit = () => {
+        
+
         this.setState({ 
             selectedSubjectDisp: this.state.fullClassDetail.subjectAreaCode,
             classSecID: this.state.fullClassDetail.classSectionID,
             gradeType: this.state.fullClassDetail.classSectionGradeTypeCode,
             classUnits: this.state.fullClassDetail.classSectionUnitCollection[0].classSectionUnit,
-            meetingDaysofWeek: this.state.fullClassDetail.classSectionMeetingCollection[0].classSectionMeetingDaysofWeekCode,
+            meetingDaysofWeek: this.generateDaysOfTheWeek(this.state.fullClassDetail.classSectionMeetingCollection[0].classSectionMeetingDaysofWeekCode),
             meetingStartTime: this.state.fullClassDetail.classSectionMeetingCollection[0].classSectionMeetingStartTime,
             meetingStopTime: this.state.fullClassDetail.classSectionMeetingCollection[0].classSectionMeetingStopTime,
             building: this.state.fullClassDetail.classSectionMeetingCollection[0].classSectionBuildingCode,
@@ -219,6 +225,27 @@ class SubjectSelect extends React.Component {
             classSectionNumber: this.state.fullClassDetail.classSectionNumber
         },
         function() {
+            const data = {classSectionBuildingCode: this.state.building};
+            fetch(`${BASE_URL}/api/getBuilding/${this.state.building}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+              params: JSON.stringify(data),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState({
+                    gridVal: data.gridVal,
+                    buildingDisp: data.building
+                },
+                function () {
+                    console.log(this.state.gridVal);
+                })
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
             this.setState({
                 newCourses: [
                     {
@@ -283,7 +310,7 @@ class SubjectSelect extends React.Component {
               <h3 className = "displayclassinfo">Course: {data.name}</h3>
               <p className = "displayclassinfo" > Section: {data.section}</p>
               <p className = "displayclassinfo"> Time: {data.time}</p>
-              <p className = "displayclassinfo"> Meeting Days: {this.generateDaysOfTheWeek(data.meetingdays)}</p>
+              <p className = "displayclassinfo"> Meeting Days: {data.meetingdays}</p>
 
               <button
                 className="classbutton"
@@ -302,7 +329,7 @@ class SubjectSelect extends React.Component {
               <h3 className = "displayclassinfo"> Course: {data.name}</h3>
               <p className = "displayclassinfo"> Section: {data.section}</p>
               <p className = "displayclassinfo"> Time: {data.time}</p>
-              <p className = "displayclassinfo"> Meeting Days: {this.generateDaysOfTheWeek(data.meetingdays)}</p>
+              <p className = "displayclassinfo"> Meeting Days: {data.meetingdays}</p>
 
     
               <button
