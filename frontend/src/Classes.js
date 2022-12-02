@@ -43,19 +43,21 @@ export default function() {
   }
 
   const goToHome = () =>{
-    navigate('/home', {state: {email: state.email}});
+    navigate('/home', {state: {email: state.email,
+      userName: state.userName}});
   }
 
   const goToClass = () =>{
-    navigate('/classes', {state: {email: state.email}});
+    navigate('/classes', {state: {email: state.email,
+      userName: state.userName}});
   }
 
     return (
       <div class = "wholeclassespage">
           <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="">
-              Hello {state.email}
-            </a>
+          <a class="navbar-brand" href="">
+             Hello, <b style={{ color: 'lightblue'}}> {state.userName}. </b>
+          </a>
             <button
               class="navbar-toggler"
               type="button"
@@ -92,7 +94,7 @@ export default function() {
                   <div class = "col-sm" wProp = "col" >
                     <div class = "firstcolumn">
                       <h2><b>Seats Available: </b> </h2>
-                      <h3>{data.classCapacityLeft < 0 ? "Full" : data.classCapacityLeft }</h3>
+                      <h3>{data.classCapacityLeft <= 0 ? "Full" : data.classCapacityLeft }</h3>
                       <br></br>
                       <br></br>
                       <h2><b>Section: </b></h2>

@@ -11,10 +11,12 @@ export default function (props) {
 
   let navigate = useNavigate();
 
-  const inputRef = useRef(null);
-  const inputRef2 = useRef(null);
-  const inputRef3 = useRef(null);
-  const inputRef4 = useRef(null);
+  const SignUpEmailField = useRef(null);
+  const SignUpPasswordField = useRef(null);
+  const SignInEmailField = useRef(null);
+  const SignInPasswordField = useRef(null);
+  const SignUpNameField = useRef(null);
+  const SignUpStudentIDField = useRef(null);
 
   useEffect(() => {
     fetch(`${BASE_URL}/api/getCurUsers`)
@@ -43,21 +45,22 @@ export default function (props) {
   }
 
   const registerUser = () => {
-    API.createUser(inputRef.current.value, inputRef2.current.value, inputRef.current.value + Date().toLocaleString());
+    API.createUser(SignUpEmailField.current.value, SignUpPasswordField.current.value, SignUpStudentIDField.current.value, SignUpNameField.current.value);
   }
 
   const authenticate = () => {
     let authenticated = true
     {data.map((c) => {
-        if (inputRef3.current.value === c.email && inputRef4.current.value === c.password){
+        if (SignInEmailField.current.value === c.email && SignInPasswordField.current.value === c.password){
           {curUsers.map((a) => {
-            if(inputRef3.current.value === a.email){
+            if(SignInEmailField.current.value === a.email){
               authenticated = false
             }
           })}
           if(authenticated){
-            API.createCurUser(inputRef3.current.value);
-            navigate('/home', {state: {email: c.email}});
+            API.createCurUser(SignInEmailField.current.value);
+            navigate('/home', {state: {email: c.email,
+                                      userName: c.userName}});
           } 
           else{
             setErrorMsg(true)
@@ -82,7 +85,7 @@ export default function (props) {
               <div className="form-group mt-3">
                 <label>Email address</label>
                 <input
-                  ref={inputRef3}
+                  ref={SignInEmailField}
                   type="email"
                   className="form-control mt-1"
                   placeholder="Enter email"
@@ -91,7 +94,7 @@ export default function (props) {
               <div className="form-group mt-3">
                 <label>Password</label>
                 <input
-                  ref={inputRef4}
+                  ref={SignInPasswordField}
                   type="password"
                   className="form-control mt-1"
                   placeholder="Enter password"
@@ -124,19 +127,43 @@ export default function (props) {
           <div className="form-group mt-3">
             <label>Email address</label>
             <input
-              ref={inputRef}
+              ref={SignUpEmailField}
               type="email"
               className="form-control mt-1"
               placeholder="Email Address"
+              required
             />
           </div>
           <div className="form-group mt-3">
             <label>Password</label>
             <input
-              ref={inputRef2}
+              ref={SignUpPasswordField}
               type="password"
               className="form-control mt-1"
               placeholder="Password"
+              required
+            />
+          </div>
+          <div className="form-group mt-3">
+            <label>Full Name</label>
+            <input
+              ref={SignUpNameField}
+              type="text"
+              className="form-control mt-1"
+              placeholder="Name"
+              required
+            />
+          </div>
+          <div className="form-group mt-3">
+            <label>Student ID</label>
+            <input
+              ref={SignUpStudentIDField}
+              type="number"
+              className="form-control mt-1"
+              placeholder="9 digit Student ID"
+              minLength="9"
+              maxLength="9"
+              required
             />
           </div>
           <div className="d-grid gap-2 mt-3">

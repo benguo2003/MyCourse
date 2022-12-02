@@ -4,13 +4,15 @@ import {BASE_URL} from "../util/constants";
 export const createUser = async (
     email,
     password,
-    userID
+    studentID,
+    userName,
   ) => {
     return await axios
       .post(`${BASE_URL}/api/createtheUser`, {
         email: email,
         password: password,
-        userID: userID
+        studentID: studentID,
+        userName: userName
       })
       .then((res) => {
         return res.data;

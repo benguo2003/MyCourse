@@ -14,11 +14,13 @@ export default function (props) {
   }
 
   const goToHome = () =>{
-    navigate('/home', {state: {email: state.email}});
+    navigate('/home', {state: {email: state.email,
+                      userName: state.userName}});
   }
 
   const goToClass = () =>{
-    navigate('/classes', {state: {email: state.email}});
+    navigate('/classes', {state: {email: state.email,
+                          userName: state.userName}});
   }
 
   const { state } = useLocation();
@@ -27,7 +29,7 @@ export default function (props) {
       <div>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <a class="navbar-brand" href="">
-             Hello <b style={{ color: 'lightblue'}}> {state.email} </b>
+             Hello, <b style={{ color: 'lightblue'}}> {state.userName}.</b>
           </a>
           <button
             class="navbar-toggler"
@@ -58,7 +60,7 @@ export default function (props) {
         </nav>
         <div className="title">MyCourse</div>
         <br></br>
-        <SubjectSelect email={state.email} />
+        <SubjectSelect email={state.email} userName={state.userName} />
         <br></br>
       </div>
     );

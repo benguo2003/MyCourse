@@ -37,6 +37,7 @@ class SubjectSelect extends React.Component {
             buildingDisp: "",
             classSectionNumber: "",
             classCapacityLeft: "",
+            userName: "",
             Courses: [],
             newCourses: [],
             inDatabaseCourses: []
@@ -53,6 +54,9 @@ class SubjectSelect extends React.Component {
     }
 
     componentDidMount() {
+        this.setState({
+            userName: this.props.userName
+        });
         fetch(`${BASE_URL}/api/subjarea`)
         .then((response) => response.json())
         .then((res) => {
@@ -284,7 +288,8 @@ class SubjectSelect extends React.Component {
                         meetingdays: this.state.meetingDaysofWeek
                     },
                 ],
-                userEmail: this.props.email
+                userEmail: this.props.email,
+
             })
         }
         );
@@ -435,7 +440,7 @@ class SubjectSelect extends React.Component {
             {newClasses}
             </div>
             <br></br>
-            <h3>Added Classes</h3>
+            <h3>{this.state.userName}'s Added Classes</h3>
 
             <div className="classes">
                 <div>
