@@ -17,7 +17,8 @@ export const createCourse = async (
     buildingDisp,
     userEmail,
     classCapacityLeft,
-    userRating
+    userRating,
+    courseAvergeRating
   ) => {
     return await axios
       .post(`${BASE_URL}/api/createCourse`, {
@@ -36,7 +37,8 @@ export const createCourse = async (
         buildingDisp: buildingDisp,
         userEmail: userEmail,
         classCapacityLeft: classCapacityLeft,
-        userRating: userRating
+        userRating: userRating,
+        courseAvergeRating: courseAvergeRating
       })
       .then((res) => {
         return res.data;
@@ -65,9 +67,10 @@ export const updateCourse = async (
   classSecID,
   userEmail,
   userRating
+  
 ) => {
   return await axios
-    .post(`${BASE_URL}/api/updateCourse`, {
+    .post(`${BASE_URL}/api/courseUpdate`, {
         classSecID: classSecID,
         userEmail: userEmail,
         userRating: userRating
@@ -79,3 +82,23 @@ export const updateCourse = async (
       console.log(err.message);
     });
 }
+
+export const updateAverage = async (
+  selectedSubject,
+  selectedCourse,
+  courseAverageRating
+) => {
+  return await axios
+    .post(`${BASE_URL}/api/updateAverage`, {
+      selectedSubject: selectedSubject,
+      selectedCourse: selectedCourse,
+      courseAverageRating: courseAverageRating
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+}
+

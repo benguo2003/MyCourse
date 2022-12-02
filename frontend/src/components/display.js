@@ -8,6 +8,8 @@ import Container from "react-bootstrap/Container";
 import {BASE_URL} from "../util/constants";
 import {TOKEN} from "../util/constants";
 import * as API from "../api/courses";
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
 
 class SubjectSelect extends React.Component {
     constructor(props) {
@@ -39,9 +41,12 @@ class SubjectSelect extends React.Component {
             classCapacityLeft: "",
             userName: "",
             userRating: -1,
+            courseAvergeRating: 0,
+            classRating: 0,
             Courses: [],
             newCourses: [],
-            inDatabaseCourses: []
+            inDatabaseCourses: [],
+            ratingsArray: [],
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleChange1 = this.handleChange1.bind(this);
@@ -51,7 +56,6 @@ class SubjectSelect extends React.Component {
         this.deleteClass = this.deleteClass.bind(this);
         this.addClass = this.addClass.bind(this);
         this.generateDaysOfTheWeek = this.generateDaysOfTheWeek.bind(this);
-        
     }
 
     componentDidMount() {
@@ -106,7 +110,8 @@ class SubjectSelect extends React.Component {
             this.state.buildingDisp,
             this.state.userEmail,
             this.state.classCapacityLeft,
-            this.state.userRating
+            this.state.userRating,
+            this.state.courseAvergeRating
         );
     };
 
@@ -152,8 +157,6 @@ class SubjectSelect extends React.Component {
         selectedSubject: event.target.value,
         courses: [],
         sections: [],
-        //selectedCourse: "",
-        //selectedSection: ""
       },
       function() {
         var classes_url = `https://api.ucla.edu/sis/classes/${this.selTerm}/v1?subjectAreaCode=${this.state.selectedSubject}&PageSize=0`
@@ -376,8 +379,6 @@ class SubjectSelect extends React.Component {
               <p className = "displayclassinfo"> Section: {data.section}</p>
               <p className = "displayclassinfo"> Time: {data.time} </p>
               <p className = "displayclassinfo"> Meeting Days: {data.meetingdays}</p>
-
-    
               <button
                 className="button-28"
                 type="button"

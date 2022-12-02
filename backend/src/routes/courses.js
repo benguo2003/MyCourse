@@ -34,8 +34,8 @@ router.route("/api/createCourse").post(function (req, res) {
     buildingDisp: req.body.buildingDisp,
     userEmail: req.body.userEmail,
     classCapacityLeft: req.body.classCapacityLeft,
-    userRating: req.body.userRating
-
+    userRating: req.body.userRating,
+    courseAvergeRating: req.body.courseAvergeRating
   };
   const db = dbo.getDb();
   db
@@ -69,7 +69,7 @@ router.route("/api/deleteCourse").delete((req, res) => {
     });
 });
 
-router.route("/api/updateCourse").post((req, res) => {
+router.route("/api/courseUpdate").post((req, res) => {
   const query = {
     classSecID: req.body.classSecID,
     userEmail: req.body.userEmail
@@ -84,9 +84,46 @@ router.route("/api/updateCourse").post((req, res) => {
       }
       else
       {
-        console.log("1 course document updated!");
+        console.log("1 course document updated! with val: " + req.body.userRating);
       }
     });
 });
+
+router.route("/api/ratings").post(async function (req, res) {
+  const userQuery = { selectedSubject: req.body.selectedSubject,
+                      selectedCourse: req.body.selectedCourse }; 
+  const db = dbo.getDb();
+    db
+      .collection("courses")
+      .find({selectedSubject: userQuery.selectedSubject, selectedCourse: userQuery.selectedCourse})
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching listings!");
+       } else {
+          res.json(result);
+        }
+      });
+});
+
+router.route("/api/updateAverage").post((req, res) => {
+  const query = {
+    selectedSubject: req.body.selectedSubject,
+    selectedCourse: req.body.selectedCourse
+  };
+  const db = dbo.getDb();
+  db
+    .collection("courses")
+    .updateMany(query, {$set: {courseAverageRating: req.body.courseAverageRating}}, function(err, __result) {
+      if(err)
+      {
+        res.status(400).send(`Error updating course!`);
+      }
+      else
+      {
+        console.log("1 average document updated!");
+      }
+    });
+});
+
 
 module.exports = router;

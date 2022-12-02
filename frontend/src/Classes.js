@@ -8,10 +8,12 @@ import * as API from "./api/courses"
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
+
 export default function () {
   const [classes, setClasses] = useState([]);
   const { state } = useLocation();
-  const [rating, setRating] = useState(0);
 
   let navigate = useNavigate();
 
@@ -31,22 +33,10 @@ export default function () {
         })
         .catch((error) => {
           console.error("Error:", error);
-        });
+        }); 
     }
-  });
+  }, []);
 
-  const RatingFormat = (value) => {
-    return `${value}`;
-  }
-
-  const handleRatingChange = (event, newVal) => {
-    setRating(newVal);
-  };
-
-  const handleSubmit = (classSecID, userEmail) => {
-    API.updateCourse(classSecID, userEmail, rating);
-  };
-  
   const parseTime = (start, end) => {
     if (start === "" && end === "") {
       return "N/A";
