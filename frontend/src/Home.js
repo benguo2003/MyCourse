@@ -14,11 +14,13 @@ export default function (props) {
   }
 
   const goToHome = () =>{
-    navigate('/home', {state: {email: state.email}});
+    navigate('/home', {state: {email: state.email,
+                      userName: state.userName}});
   }
 
   const goToClass = () =>{
-    navigate('/classes', {state: {email: state.email}});
+    navigate('/classes', {state: {email: state.email,
+                          userName: state.userName}});
   }
 
   const { state } = useLocation();
@@ -62,7 +64,7 @@ export default function (props) {
         </nav>
         <div class="wholebackground">
         <br></br>
-        <SubjectSelect email={state.email} />
+        <SubjectSelect email={state.email} userName={state.userName} />
         <br></br>
         </div>
       </div>

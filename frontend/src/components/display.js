@@ -37,6 +37,7 @@ class SubjectSelect extends React.Component {
             buildingDisp: "",
             classSectionNumber: "",
             classCapacityLeft: "",
+            userName: "",
             Courses: [],
             newCourses: [],
             inDatabaseCourses: []
@@ -53,6 +54,9 @@ class SubjectSelect extends React.Component {
     }
 
     componentDidMount() {
+        this.setState({
+            userName: this.props.userName
+        });
         fetch(`${BASE_URL}/api/subjarea`)
         .then((response) => response.json())
         .then((res) => {
@@ -284,7 +288,8 @@ class SubjectSelect extends React.Component {
                         meetingdays: this.state.meetingDaysofWeek
                     },
                 ],
-                userEmail: this.props.email
+                userEmail: this.props.email,
+
             })
         }
         );
@@ -378,7 +383,6 @@ class SubjectSelect extends React.Component {
 
         return (
         <div class="container">
-
         <div class = "pageraiseddisplay"  >
             <div class = "addpadding">
             <div class="row">
@@ -436,16 +440,15 @@ class SubjectSelect extends React.Component {
                 </button>
             </div>
             </div>
-            </div >
-            <Container >
-                
-                <br></br>
-                <h3>Current Class</h3>
-                <div className="oneclass">
-                {newClasses}
-                </div>
-                <br></br>
-                <h3>Added Classes</h3>
+        
+            <Container>
+            <br></br>
+            <h3>Current Class</h3>
+            <div className="oneclass">
+            {newClasses}
+            </div>
+            <br></br>
+            <h3>Added Classes</h3>
 
                 <div className="classes">
                     <div>
@@ -456,6 +459,7 @@ class SubjectSelect extends React.Component {
                 
             </Container>
             </div>
+        </div>
         </div>
         );
     }

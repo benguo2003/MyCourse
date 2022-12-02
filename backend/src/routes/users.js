@@ -34,7 +34,8 @@ router.route("/api/createtheUser").post(function (req, res) {
   const matchDocument = {
     email: req.body.email,
     password: req.body.password,
-    userID: req.body.userID
+    studentID: req.body.studentID,
+    userName: req.body.userName
   };
   const db = dbo.getDb();
   db
@@ -55,7 +56,6 @@ router.route("/api/createCurUser").post(function (req, res) {
   const matchDocument = {
     email: req.body.email
   };
-  console.log("NAH WHY TF U FAILING IF U IN HERE BRUH :((((((: " + req.body.email);
   const db = dbo.getDb();
   db
     .collection("curUser")
