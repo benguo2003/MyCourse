@@ -39,7 +39,6 @@ class SubjectSelect extends React.Component {
             classCapacityLeft: "",
             Courses: [],
             newCourses: [],
-            isSubmitted: false,
             inDatabaseCourses: []
         };
         this.handleChange = this.handleChange.bind(this);
@@ -161,7 +160,6 @@ class SubjectSelect extends React.Component {
             .then((res) => {
             this.setState({
                 courses: res.classes,
-                isSubmitted: false
             });
             })
             .catch((error) => {
@@ -286,7 +284,6 @@ class SubjectSelect extends React.Component {
                         meetingdays: this.state.meetingDaysofWeek
                     },
                 ],
-                isSubmitted: true,
                 userEmail: this.props.email
             })
         }
@@ -402,7 +399,7 @@ class SubjectSelect extends React.Component {
                         id="demo-simple-select"
                         onChange={this.handleChange1}>
                         {this.state.courses.map((c, i) => {
-                            return <MenuItem value={c.courseCatalogNumber + ":" + c.courseCatalogNumberDisplay} key={this.state.selectedSubject + toString(i)}>{this.state.isSubmitted ? "Submitted" : c.subjectAreaCode + " " + c.courseCatalogNumberDisplay}</MenuItem>
+                            return <MenuItem value={c.courseCatalogNumber + ":" + c.courseCatalogNumberDisplay} key={this.state.selectedSubject + toString(i)}>{c.subjectAreaCode + " " + c.courseCatalogNumberDisplay}</MenuItem>
                         })}
                     </Select>
                     </FormControl>
@@ -418,7 +415,7 @@ class SubjectSelect extends React.Component {
                         id="demo-simple-select"
                         onChange={this.handleChange2}>
                         {this.state.sections.map((c, i) => {
-                            return <MenuItem value={"00" + (i+1)} key={this.state.selectedSubject + this.state.selectedCourseDisp + toString(i)}>{this.state.isSubmitted ? "Submitted" : "Lecture: 00" + (i+1)}</MenuItem>
+                            return <MenuItem value={"00" + (i+1)} key={this.state.selectedSubject + this.state.selectedCourseDisp + toString(i)}>{"Lecture: 00" + (i+1)}</MenuItem>
                         })}
                     </Select>
                     </FormControl>
