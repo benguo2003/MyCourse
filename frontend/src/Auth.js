@@ -6,12 +6,26 @@ import { useNavigate } from "react-router-dom";
 export default function (props) {
   let [authMode, setAuthMode] = useState("signin")
   const [data, setUsers] = useState([]);
+  const [curUsers, setCurUsers] = useState([]);
+  const [showErrorMsg, setErrorMsg] = useState(false)
+
   let navigate = useNavigate();
 
   const inputRef = useRef(null);
   const inputRef2 = useRef(null);
   const inputRef3 = useRef(null);
   const inputRef4 = useRef(null);
+
+  useEffect(() => {
+    fetch(`${BASE_URL}/api/getCurUsers`)
+      .then((response) => response.json())
+      .then((res) => {
+        setCurUsers(res)
+      })
+      .catch((error) => {
+        console.error(`Could not get products: ${error}`);
+      });
+  }, [])
 
   useEffect(() => {
     fetch(`${BASE_URL}/api/users`)
@@ -24,7 +38,6 @@ export default function (props) {
       });
     }, [])
 
-
   const changeAuthMode = () => {
     setAuthMode(authMode === "signin" ? "signup" : "signin")
   }
@@ -34,51 +47,65 @@ export default function (props) {
   }
 
   const authenticate = () => {
+    let authenticated = true
     {data.map((c) => {
-        if (inputRef3.current.value === c.email && inputRef4.current.value === c.password) {
+        if (inputRef3.current.value === c.email && inputRef4.current.value === c.password){
+          {curUsers.map((a) => {
+            if(inputRef3.current.value === a.email){
+              authenticated = false
+            }
+          })}
+          if(authenticated){
             API.createCurUser(inputRef3.current.value);
             navigate('/home');
+          }
+          else{
+            setErrorMsg(true)
+          }
         }
     })}
   }
 
   if (authMode === "signin") {
     return (
-      <div className="Auth-form-container">
-        <form className="Auth-form">
-          <div className="Auth-form-content">
-            <h3 className="Auth-form-title">Sign In</h3>
-            <div className="text-center">
-              Not registered yet?{" "}
-              <span className="link-primary" onClick={changeAuthMode}>
-                <u>Sign Up</u> 
-              </span>
+      <div>
+        <div className="Auth-form-container">
+          <form className="Auth-form">
+            <div className="Auth-form-content">
+              <h3 className="Auth-form-title">Sign In</h3>
+              <div className="text-center">
+                Not registered yet?{" "}
+                <span className="link-primary" onClick={changeAuthMode}>
+                  <u>Sign Up</u> 
+                </span>
+              </div>
+              <div className="form-group mt-3">
+                <label>Email address</label>
+                <input
+                  ref={inputRef3}
+                  type="email"
+                  className="form-control mt-1"
+                  placeholder="Enter email"
+                />
+              </div>
+              <div className="form-group mt-3">
+                <label>Password</label>
+                <input
+                  ref={inputRef4}
+                  type="password"
+                  className="form-control mt-1"
+                  placeholder="Enter password"
+                />
+              </div>
+              <div className="d-grid gap-2 mt-3">
+                <button type="button" className="btn btn-primary" onClick={authenticate}>
+                  Submit
+                </button>
+              </div>
             </div>
-            <div className="form-group mt-3">
-              <label>Email address</label>
-              <input
-                ref={inputRef3}
-                type="email"
-                className="form-control mt-1"
-                placeholder="Enter email"
-              />
-            </div>
-            <div className="form-group mt-3">
-              <label>Password</label>
-              <input
-                ref={inputRef4}
-                type="password"
-                className="form-control mt-1"
-                placeholder="Enter password"
-              />
-            </div>
-            <div className="d-grid gap-2 mt-3">
-              <button type="button" className="btn btn-primary" onClick={authenticate}>
-                Submit
-              </button>
-            </div>
-          </div>
-        </form>
+          </form>
+          <p> {showErrorMsg ? "Error! Someone is logged in with this email" : ""} </p>
+        </div>
       </div>
     )
   }
