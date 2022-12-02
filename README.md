@@ -1,8 +1,5 @@
 # MyCourse
 
-
-# MyCourse
-
 #### Source Code is Master branch!
 
 MyCourse is a tool students can use to keep track of their classes and view important facts about them. Users can add and drop classes, view information such as seats left, and view a map with the building marked.
