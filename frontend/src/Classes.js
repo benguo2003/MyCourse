@@ -4,9 +4,16 @@ import {useState, useEffect} from "react"
 import { BASE_URL } from "./util/constants";
 import { useLocation, useNavigate } from "react-router-dom"
 
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+
+
 export default function() {
   const [classes, setClasses] = useState([]);
   const { state } = useLocation();
+  const [rating, setRating] = useState(0);
+  
+  
 
   let navigate = useNavigate();
 
@@ -30,6 +37,14 @@ export default function() {
     }
   })
 
+  const RatingFormat = (value) => {
+    return `${value}`;
+  }
+
+  const handleRatingChange = (event, newVal) => {
+    setRating(newVal);
+  };
+  
   const parseTime = (start, end) => {
     if(start === "" && end === ""){
       return "N/A";
@@ -113,6 +128,24 @@ export default function() {
                       <br></br>
                       <h2><b>Units: </b></h2>
                       <h3>{data.classUnits}</h3>
+
+                      <div>
+                      <Box sx={{ width: 300 }}>
+                        <Slider
+                          
+                          aria-label="Rating"
+                          value={rating}
+                          onChange={handleRatingChange}
+                          getAriaValueText={RatingFormat}
+                          valueLabelDisplay="auto"
+                          step={1}
+                          marks
+                          min={1}
+                          max={5}
+                        />
+                      </Box>
+                      </div>
+
                     </div>
                   </div>
                   <div class = "col-sm" wProp = "col">
