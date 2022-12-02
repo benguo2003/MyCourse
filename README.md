@@ -32,7 +32,7 @@ cd MyCourse/frontend <br />
 npm install <br />
 npm start <br />
 
-Notable Information regarding App Function:
+### Notable Information regarding App Function:
 
 Our app relies on UCLA's Classes and Courses API, whose authentication token refreshes every hour. A specific postman request is needed to get access to a new token, with no way of accessing this API otherwise.
 
